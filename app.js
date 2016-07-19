@@ -129,7 +129,7 @@ function createResponseData(id, rev, name, ticketData, attachments) {
 };
 
 // Routing
-app.get('/', function(req, res){
+app.get('/main', function(req, res){
 	res.send('index.html');
 });
 
@@ -161,7 +161,7 @@ app.post('/api/new-ticket/submit', function(req, res){
 			console.log('[DB error]: ' + err);
 		} else {
 			console.log('[DB]: document inserted -> ' + JSON.stringify(doc));
-			res.send('Your ticket has been submited.'); // better to use Post/Redirect/Get pattern
+			res.status(303).send('Your ticket has been submited successfully.'); //this is part of Post/Redirect/Get pattern
 		}
 	});// End document insert
 });

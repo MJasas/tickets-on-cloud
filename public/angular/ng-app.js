@@ -2,12 +2,33 @@
 TicketSupportApp
 *********************************/
 
-var app = angular.module('TicketsSupportApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+angular.module('TicketsSupportApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
+
+/*********************************
+Custom directive for inputs
+*********************************/
+angular.module('TicketsSupportApp').directive('myDirective', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, element, attr, SubmitNewTicketController) {
+            function myLetterCase(value) {
+                firstLetter = value.slice(0, 1);
+                if (firstLetter == firstLetter.toUpperCase()){
+                    SubmitNewTicketController.$setValidity('firstCapital', true);
+                } else {
+                    SubmitNewTicketController.$setValidity('firstCapital', false);
+                }
+                return value;
+            }
+            SubmitNewTicketController.$parsers.push(myLetterCase);
+        }
+    };
+});
 
 /*********************************
 Custom directive for file handling
 *********************************/
-app.directive('fileModel', ['$parse', function ($parse) {
+angular.module('TicketsSupportApp').directive('fileModel', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         link: function(scope, element, attrs) {
@@ -26,7 +47,7 @@ app.directive('fileModel', ['$parse', function ($parse) {
 /*********************************
 Custom service for managing Ticket submit
 *********************************/
-app.service('formSubmitService', ['$http', function($http){
+angular.module('TicketsSupportApp').service('formSubmitService', ['$http', function($http){
 
         this.uploadToUrl = function(fd, url){
 
@@ -50,152 +71,60 @@ app.service('formSubmitService', ['$http', function($http){
             });
         }
 }]);
-/*********************************
-Ticket Submit Controller
-*********************************/
 
-app.controller('SubmitNewTicketController', function($scope, $http, $location, formSubmitService){
-    // Reset fields
-    $scope.resetForm = function(){
-      $scope.newTicket = {};
-    }
 
-    // Submit new ticket
-    $scope.submitForm = function(){
-        var form = document.getElementsByName('submitNewTicketForm').item(0); 
-        // submit form via Angular custom service
-        var fd = new FormData(form);
-        // formSubmitService.uploadToUrl(fd, 'api/new-ticket/submit');
+var changeLocation = function(url, forceReload) {
+  $scope = $scope || angular.element(document).scope();
+  if(forceReload || $scope.$$phase) {
+    $window.location = url;
+  }
+  else {
+    //only use this if you want to replace the history stack
+    //$location.path(url).replace();
 
-        // Submit form data
-        var formData = {
-            ticketType : $scope.newTicket.ticketType,
-            firstName : $scope.newTicket.firstName,
-            lastName : $scope.newTicket.lastName,
-            email : $scope.newTicket.email,
-            question : $scope.newTicket.question,
-            fileAttachment : []
-        };
-        // Send 
-        $http({
-            method : "POST",
-            url : "api/new-ticket/submit",
-            data : formData
-        })
-            .success(function (response){
-                console.log(response); // logs an object (with success message)
-            })
-            .error(function(err){
-                console.log(err);
-            });
-    };
+    //this this if you want to change the URL and add it to the history stack
+    $location.path(url);
+    $scope.$apply();
+  }
+};
 
-    // test server
-    $scope.testServer = function(){
-       $http({
-           method : "GET",
-           url : "/api/test/server"
-       }).then(function mySuccses(response){
-           console.log(response.data);
-       }, function myError(response) {
-           console.log(response.data)
-       });
-    };
+var redirectLocation = function(url, forceReload) {
+  $scope = $scope || angular.element(document).scope();
+  if(forceReload || $scope.$$phase) {
+    $window.location = url;
+  }
+  else {
+    //only use this if you want to replace the history stack
+    //$location.path(url).replace();
 
-});
+    //this this if you want to change the URL and add it to the history stack
+    $location.path(url);
+    $location.replace();
+  }
+};
 
-/*********************************
-Tickets Board Controller
-*********************************/
 
-app.controller('TicketsBoardController', function($scope, $http, $location){
-    //initialization
-    var ticketsCount = 0;
-    var last = 0;
-    $scope.answState = [];
-
-    angular.element(document).ready(function() {
-        $http({
-           method : "GET",
-           url : "/api/fetch/tickets"
-       })
-        .success(function(response) {
-            console.log(JSON.stringify(response));
-            $scope.allTickets = response;
-            ticketsCount = $scope.allTickets.length;
-                if (ticketsCount) {
-                    $scope.tickets = [$scope.allTickets[0]];
-                    for (var i = 0; i < ticketsCount; i++) {
-                        if ($scope.allTickets[i].data.answer.text != "") {
-                            $scope.answState.push(true);
-                        } else {
-                            $scope.answState.push(false);
-                        }
-                    }
-                } else {
-                    console.log('There is no tickets in the db.')
-                }
-        })
-        .error(function(err) {
-            console.log(err);
-        });
-    });
-
-    //show more on scroll
-    $scope.loadMore = function(){
-        if (last < ticketsCount) {
-            last = $scope.tickets.length;
-            for(var i = 1; i<= 1; i++) {
-                $scope.tickets.push($scope.allTickets[last]);
-            }
-        }
-    };
-    $scope.showScope = function(e) {
-        console.log(angular.element(e.srcElement).scope());
-    };
-
-    $scope.submitAnswer = function(index, newText){
-        //copy and make modification
-        var ticket = angular.copy($scope.allTickets[index]);
-        ticket.data.answer.text = newText;
-        ticket.data.answer.newText = '';
-        //send ticket update req to server
-        $http({
-            method : "PUT",
-            url : "api/update/ticket/",
-            data : ticket
-        })
-            .success(function (response){
-                //show answer
-                console.log("response: ", response);
-                $scope.answState[index] = true;
-                $scope.allTickets[index].data.answer.text = newText;
-                $scope.allTickets[index].data.answer.newText = '';
-                $scope.allTickets[index]._rev = response;
-            })
-            .error(function(err){
-                console.log(err);
-            });
-
-    };
-});
 
 /*********************************
 Routing
 *********************************/
 
-app.config(function($routeProvider) {
+angular.module('TicketsSupportApp').config(function($routeProvider) {
   $routeProvider.
-    //Root
+   //Root
+    when('/main', {
+        templateUrl: 'angular/views/main.html',
+        controller: 'MainCtrl'
+    }).
     when('/submit/new-ticket', {
-        templateUrl: 'angular/views/SubmitForm.html',
-        controller: 'SubmitNewTicketController'
+        templateUrl: 'angular/views/submitForm.html',
+        controller: 'SubmitNewTicketCtrl'
     }).
     when('/show/all-tickets', {
-        templateUrl: 'angular/views/TicketsBoard.html',
-        controller: 'TicketsBoardController'
+        templateUrl: 'angular/views/ticketsBoard.html',
+        controller: 'TicketsBoardCtrl'
     }).
     otherwise({
-        redirectTo: '/'
+        redirectTo: '/main'
     });
 });
