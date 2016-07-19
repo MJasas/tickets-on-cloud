@@ -146,8 +146,13 @@ app.post('/api/new-ticket/submit', function(req, res){
 	ticket.status = 'New';
 	ticket.lastUpdate = '';
 	// add answer properties
+	var date = new Date();
 	ticket.answer = {
-		text : 'not answered yet.',
+		chat: [{
+			name: "unknown",
+			timeStamp: date.getTime(),
+			text: "not answered yet"
+		}],
 		newText : ''};
 	// Push Ticket data to DB
 	var docName = 'Ticket';

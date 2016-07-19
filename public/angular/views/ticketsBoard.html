@@ -1,12 +1,62 @@
 <!--Loads all tickets in separate panels-->
 
-<div class="container" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+<div class="container">
 
     <h2>Submited Tickets</h2>
+
+     <div class="alert alert-info">
+        <p>Sort Type: {{ sortType }}</p>
+        <p>Sort Reverse: {{ sortReverse }}</p>
+        <p>Search Query: {{ searchTicket }}</p>
+    </div>
+    <div class="btn-group btn-group-justified">
+        <div class="btn-group" ng-repeat="button in sortButtons">
+            <button 
+                type="button" 
+                class="btn btn-primary"
+                ng-click="sortBy(button)">
+                {{ button }} 
+                <span
+                    class="glyphicon glyphicon-triangle-bottom"
+                    ng-show="sortType == '{{ 'data.' + button }}' && !sortReverse">
+                </span>
+                 <span
+                    class="glyphicon glyphicon-triangle-top"
+                    ng-show="sortType == '{{ 'data.' + button }}' && sortReverse">
+                </span>
+            </button>
+        </div>
+        <!--<div class="btn-group">
+        <button type="button" class="btn btn-primary">Status</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Type</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Priority</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Severity</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Aplication</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Region</button>
+        <div class="btn-group">
+        <button type="button" class="btn btn-primary">Inquier</button>
+        <button type="button" class="btn btn-primary">Resolver</button>
+        <button type="button" class="btn btn-primary">Creation time</button>
+        <button type="button" class="btn btn-primary">Resolution time</button>
+        <button type="button" class="btn btn-primary">Last update</button>-->
+    </div>
+    <form>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                <input type="text" class="form-control" placeholder="Search for tickets" ng-model="searchTicket">
+            </div>      
+        </div>
+    </form>
     <!--<h4>Scoll down to load more</h4>-->
     <uib-accordion>
         <!--panels group -->
-        <div class="panel-group" ng-repeat="ticket in allTickets">
+        <div class="panel-group" ng-repeat="ticket in allTickets | orderBy: sortType : sortReverse | filter:searchTicket">
             <!--Ticket meta part-->
             <uib-accordion-group heading="Meta info from database (click to expand)">
             Document ID: {{ticket._id}} <br>
@@ -26,7 +76,7 @@
                             <h3 class="question-box"> Question: {{ ticket.data.question }} </h3> <span class="badge left-side">2 answers</span>
                         </div>
                         <div class="col-sm-2">
-                            Last update: --not implemented yet--
+                            Last update: {{ ticket.data.answer.chat[0].timeStamp | date : medium}}
                         </div>
                     </div>
                 </uib-accordion-heading>  

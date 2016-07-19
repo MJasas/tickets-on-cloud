@@ -4,7 +4,19 @@ Tickets Board Controller
 
 angular.module('TicketsSupportApp')
     .controller('TicketsBoardCtrl', function($scope, $http, $location){
-        //initialization
+        // Tickets Sorting
+        $scope.sortButtons = ['id', 'status', 'type', 'priority', 'severity', 'application', 'region', 'inquier', 'resolver', 'creationTime', 'resolutionTime', 'lastUpdate'];
+        // Ticket Search 
+        $scope.sortType     = 'data.lastUpdate'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchTicket   = '';     // set the default search/filter term
+
+        $scope.sortBy = function(sortType) {
+            $scope.sortType = 'data.'+sortType;
+            $scope.sortReverse = !$scope.sortReverse;
+        };
+        
+        //initialization for fetching
         var ticketsCount = 0;
         var last = 0;
         $scope.answState = [];
@@ -44,9 +56,7 @@ angular.module('TicketsSupportApp')
                 }
             }
         };
-        $scope.showScope = function(e) {
-            console.log(angular.element(e.srcElement).scope());
-        };
+
 
         $scope.submitAnswer = function(index, newText){
             //copy and make modification

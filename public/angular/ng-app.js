@@ -113,8 +113,8 @@ angular.module('TicketsSupportApp').config(function($routeProvider) {
   $routeProvider.
    //Root
     when('/main', {
-        templateUrl: 'angular/views/main.html',
-        controller: 'MainCtrl'
+        templateUrl: 'angular/views/frontPage.html',
+        controller: 'FrontPageCtrl'
     }).
     when('/submit/new-ticket', {
         templateUrl: 'angular/views/submitForm.html',

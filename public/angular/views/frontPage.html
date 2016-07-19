@@ -1,0 +1,45 @@
+<div class="row">
+    <!--1/2 view-->
+    <div class="col-md-6">
+        <div class="form-group">
+            <h3>Search for answer</h3>
+            <textarea
+                id="searchAnswer"
+                class="form-control"
+                name="searchAnswer"
+                rows="3"
+                ng-model="newQuestion.text"
+                placeholder="Describe your question here..."
+                required>
+            </textarea>
+            <br/>
+            <button
+                type="button"
+                class="btn btn-primary form-control"
+                ng-click="searchAnswer()">
+                Search
+            </button>
+        </div>
+    </div>
+    <!--1/2 view-->
+    <div class="col-md-6">
+        <div class="form-group">
+            <h3>Check your ticket</h3>
+            <input
+                id="searchTicket"
+                class="form-control"
+                type="text" 
+                name="searchTicket" 
+                ng-model="ticket.id"
+                placeholder="Enter ticket id number"
+                required/>
+            <br/>
+            <button
+                type="button"
+                class="btn btn-primary form-control"
+                ng-click="checkTicket()">
+                Check
+            </button>
+        </div>
+    </div>
+</div>
