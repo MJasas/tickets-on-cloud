@@ -26,24 +26,6 @@
                 </span>
             </button>
         </div>
-        <!--<div class="btn-group">
-        <button type="button" class="btn btn-primary">Status</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Type</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Priority</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Severity</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Aplication</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Region</button>
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary">Inquier</button>
-        <button type="button" class="btn btn-primary">Resolver</button>
-        <button type="button" class="btn btn-primary">Creation time</button>
-        <button type="button" class="btn btn-primary">Resolution time</button>
-        <button type="button" class="btn btn-primary">Last update</button>-->
     </div>
     <form>
         <div class="form-group">
@@ -82,7 +64,7 @@
                 </uib-accordion-heading>  
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
-                            <p> <span>Answer:</span> {{ ticket.data.answer.text }}</p>
+                            <p> <span>Answer:</span> {{ ticket.data.answer.chat[0].text }}</p>
                         </div>
                     <form name="ticketAnswer">
                         <div class="form-group">

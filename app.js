@@ -39,7 +39,7 @@ if ('development' == app.get('env')) {
 var db; // data base variable
 var cloudant // instance of cloudant 
 var dbCredentials = {
-	dbName : 'my_sample_db'
+	dbName : 'ibptickets'
 };
 
 // instantiate database (by default to db variable)
@@ -49,7 +49,7 @@ initDBConnection();
 // Utilities
 //--------------------------------------
 function initDBConnection() {
-	
+	var allBds = [];
 	if(process.env.VCAP_SERVICES) {
 		var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
 		// Pattern match to find the first instance of a Cloudant service in
@@ -79,24 +79,23 @@ function initDBConnection() {
 			console.warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
 		}
 	} else{
-		// For running this app locally you can get your Cloudant credentials 
-		// from Bluemix (VCAP_SERVICES in "cf env" output or the Environment 
-		// Variables section for an app in the Bluemix console dashboard).
-		// Alternately you could point to a local database here instead of a 
-		// Bluemix service.
-		dbCredentials.host = "1b2002ce-86d2-485d-8544-8b1176d03e78-bluemix.cloudant.com";
+		// Crediantials to Cloudant Service
+		dbCredentials.host = "a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
 		dbCredentials.port = 443;
-		dbCredentials.user = "1b2002ce-86d2-485d-8544-8b1176d03e78-bluemix";
-		dbCredentials.password = "3b640e2414f4458b0cae634db288bcc6ae6636d513306ff6a0f7a8b4147df8ec";
-		dbCredentials.url = "https://1b2002ce-86d2-485d-8544-8b1176d03e78-bluemix:3b640e2414f4458b0cae634db288bcc6ae6636d513306ff6a0f7a8b4147df8ec@1b2002ce-86d2-485d-8544-8b1176d03e78-bluemix.cloudant.com";
+		dbCredentials.user = "a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix";
+		dbCredentials.password = "15e7ca4b1b69f3457e080450e03fcd82f7c1ced9597c441a670f510036514add";
+		dbCredentials.url = "https://a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix:15e7ca4b1b69f3457e080450e03fcd82f7c1ced9597c441a670f510036514add@a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
 		
 		cloudant = require('cloudant')(dbCredentials.url);
-		
+		// check if DB exists if not create
+		cloudant.db.create(dbCredentials.dbName, function (err, res) {
+			if (err) { console.log('could not create db ', err); }
+		});
 		// use existing data base
 		db = cloudant.db.use(dbCredentials.dbName);
 
 		if (db==null){
-			console.warn('VCAP_SERVICES environment variable not set - data will be unavailable to the UI');
+			console.warn('[DB]: Not connected. Data will be unavailable to the UI');
 		}else{
 			console.warn('DB status: connected to ' + dbCredentials.dbName);
 		}
@@ -133,30 +132,35 @@ app.get('/main', function(req, res){
 	res.send('index.html');
 });
 
-app.get('/api/test/server', function(req, res){
-	res.send('Tessstiiing')
-	res.end();
-}); 
-
 app.post('/api/new-ticket/submit', function(req, res){
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
 	var ticket = req.body;
-	// add unique id
-	ticket.id = shortid.generate();
-	ticket.status = 'New';
-	ticket.lastUpdate = '';
-	// add answer properties
 	var date = new Date();
+	// add property: id
+	ticket.id = shortid.generate();
+	// add property: status
+	ticket.status = 'new';
+	// add property: resolver
+	ticket.resolver = '';
+	// add property: severity
+	ticket.severity = '';
+	// add property: creationTime (miliseconds)
+	ticket.creationTime = date.getTime(); 
+	// add property: resolutionTime
+	ticket.resolutionTime = null;
+	// add property: lastupdate
+	ticket.lastUpdate = null;
+	// add property: answer (object)
 	ticket.answer = {
 		chat: [{
-			name: "unknown",
+			name: "admin",
 			timeStamp: date.getTime(),
-			text: "not answered yet"
+			text: "not answered yet."
 		}],
 		newText : ''};
 	// Push Ticket data to DB
 	var docName = 'Ticket';
-	var docDesc = 'A sample ticket';
+	var docDesc = 'This doc holds all data associated with IBP ticket.';
 	db.insert({
 		name: docName,
 		value : docDesc,

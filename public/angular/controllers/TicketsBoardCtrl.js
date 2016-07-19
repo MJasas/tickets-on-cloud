@@ -15,7 +15,7 @@ angular.module('TicketsSupportApp')
             $scope.sortType = 'data.'+sortType;
             $scope.sortReverse = !$scope.sortReverse;
         };
-        
+
         //initialization for fetching
         var ticketsCount = 0;
         var last = 0;
@@ -61,7 +61,7 @@ angular.module('TicketsSupportApp')
         $scope.submitAnswer = function(index, newText){
             //copy and make modification
             var ticket = angular.copy($scope.allTickets[index]);
-            ticket.data.answer.text = newText;
+            ticket.data.answer.chat[0].text = newText;
             ticket.data.answer.newText = '';
             //send ticket update req to server
             $http({
@@ -73,7 +73,7 @@ angular.module('TicketsSupportApp')
                     //show answer
                     console.log("response: ", response);
                     $scope.answState[index] = true;
-                    $scope.allTickets[index].data.answer.text = newText;
+                    $scope.allTickets[index].data.answer.chat[0].text = newText;
                     $scope.allTickets[index].data.answer.newText = '';
                     $scope.allTickets[index]._rev = response;
                 })

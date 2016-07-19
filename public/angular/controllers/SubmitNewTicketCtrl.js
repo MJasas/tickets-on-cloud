@@ -17,7 +17,10 @@ angular.module('TicketsSupportApp')
 
             // Submit form data
             var formData = {
-                ticketType : $scope.newTicket.ticketType,
+                type : $scope.newTicket.ticketType,
+                priority : $scope.newTicket.ticketPriority,
+                application : $scope.newTicket.application,
+                region : $scope.newTicket.region,
                 firstName : $scope.newTicket.firstName,
                 lastName : $scope.newTicket.lastName,
                 email : $scope.newTicket.email,
