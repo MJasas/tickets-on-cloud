@@ -13,9 +13,9 @@
                 </label>
                 <div class="col-md-8">
                     <select id="ticketType" name="typeSelectField" class="form-control" ng-model="newTicket.ticketType" required>
-                        <option value="normal" selected>typeA</option>
-                        <option value="important">typeB</option>
-                        <option value="urgent">typeC</option>
+                        <option value="typeA" selected>typeA</option>
+                        <option value="typeB">typeB</option>
+                        <option value="typeC">typeC</option>
                     </select>
                     <span ng-show="newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid">Please select ticket type.</span>
                 </div>
@@ -39,9 +39,9 @@
                 </label>
                 <div class="col-md-8">
                     <select id="application" name="applicationSelectField" class="form-control" ng-model="newTicket.application" required>
-                        <option value="normal" selected>appA</option>
-                        <option value="important">appB</option>
-                        <option value="urgent">appC</option>
+                        <option value="appA" selected>appA</option>
+                        <option value="appB">appB</option>
+                        <option value="appC">appC</option>
                     </select>
                     <span ng-show="newTicketForm.applicationSelectField.$touched && newTicketForm.applicationSelectField.$invalid">Please select application name.</span>
                 </div>
@@ -52,9 +52,9 @@
                 </label>
                 <div class="col-md-8">
                     <select id="region" name="regionSelectField" class="form-control" ng-model="newTicket.region" required>
-                        <option value="normal" selected>Region A</option>
-                        <option value="important">Region B</option>
-                        <option value="urgent">Region C</option>
+                        <option value="regionA" selected>Region A</option>
+                        <option value="regionB">Region B</option>
+                        <option value="regionC">Region C</option>
                     </select>
                     <span ng-show="newTicketForm.regionSelectField.$touched && newTicketForm.regionSelectField.$invalid">Please select region.</span>
                 </div>
@@ -110,6 +110,9 @@
                 <div class="col-md-8">
                     <button type="button" class="btn btn-primary" 
                     ng-disabled="newTicketForm.typeSelectField.$pristine ||
+                                 newTicketForm.prioritySelectField.$pristine ||
+                                 newTicketForm.applicationSelectField.$pristine ||
+                                 newTicketForm.regionSelectField.$pristine ||
                                  newTicketForm.firstNameField.$pristine ||
                                  newTicketForm.lastNameField.$pristine ||
                                  newTicketForm.emailField.$pristine ||

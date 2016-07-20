@@ -242,8 +242,10 @@ app.get('/api/fetch/tickets', function(req, res){
 app.put('/api/update/ticket', function(req, res){
 	console.log('[Server]: managing update request with data:'+ JSON.stringify(req.body));
 	var ticket = req.body;
+	var lastMessage = ticket.data.answer.chat.length;
 	var timeStamp = new Date();
-	ticket.data.answer.chat[0].timeStamp = timeStamp.getTime();
+	
+	ticket.data.answer.chat[lastMessage-1].timeStamp = timeStamp.getTime();
 	ticket.data.lastUpdate = timeStamp.getTime();
 	db.insert(ticket, function(err, doc) {
 		if (err) {

@@ -99,23 +99,14 @@
                         Raised by: {{ ticket.data.firstName }} {{ ticket.data.lastName }}
                     </div>
                     <div class="col-sm-4">
-                        
-                        <!-- Split button -->
-                        <div class="btn-group">
-                        <button type="button" class="btn btn-danger">Assigned to:{{ ticket.data.resolver }}</button>
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a>Gintautas</a></li>
-                            <li><a>Eimantas</a></li>
-                            <li><a>Evaldas</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a>more</a></li>
-                        </ul>
-                        </div>
-
+                        <!-- Select field -->
+                        <label>Assigned to:
+                            <span  class="nullable">
+                                <select id="resolversDropDown" ng-model="ticket.data.resolver" ng-options="select as label for name in allResolvers" ng-click="trigerMe(ticket.data.resolver)">
+                                <option value="">-- choose resolver --</option>
+                                </select>
+                            </span>
+                        </label>
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-success"> Move to Q&A </button>

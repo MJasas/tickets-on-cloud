@@ -6,11 +6,13 @@ angular.module('TicketsSupportApp')
     .controller('TicketsBoardCtrl', function($scope, $http, $location){
         // Tickets Sorting
         $scope.sortButtons = ['id', 'status', 'type', 'priority', 'severity', 'application', 'region', 'inquier', 'resolver', 'creationTime', 'resolutionTime', 'lastUpdate'];
+        // Resolvers
+        $scope.allResolvers = ['Resolver1', 'Resolver2', 'Resolver3']; //[{name:'Resolver1'}, {name:'Resolver2'}, {name:'Resolver3'}]; //['Resolver1', 'Resolver2', 'Resolver3'];
         // Ticket Search 
         $scope.sortType     = 'data.lastUpdate'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.searchTicket   = '';     // set the default search/filter term
-
+        // Change sorting type
         $scope.sortBy = function(sortType) {
             $scope.sortType = 'data.'+sortType;
             $scope.sortReverse = !$scope.sortReverse;
@@ -56,13 +58,21 @@ angular.module('TicketsSupportApp')
                 }
             }
         };
+        $scope.trigerMe = function(who){
+            console.log(who);
+        }
 
 
         $scope.submitAnswer = function(index, newText){
             //copy and make modification
             var ticket = angular.copy($scope.allTickets[index]);
-            ticket.data.answer.chat[0].text = newText;
-            ticket.data.answer.newText = '';
+            var lastMessage = ticket.data.answer.chat.length;
+            // Push new answer to chat
+            ticket.data.answer.chat.push({
+                name : ticket.data.resolver,
+                text : newText
+            });
+            ticket.data.answer.newText = ''; // clear input
             //send ticket update req to server
             $http({
                 method : "PUT",
@@ -73,11 +83,16 @@ angular.module('TicketsSupportApp')
                     //show answer
                     console.log("response: ", response);
                     $scope.answState[index] = true;
-                    $scope.allTickets[index].data.answer.chat[0].text = newText;
-                    $scope.allTickets[index].data.answer.chat[0].timeStamp = response.timeStamp;
-                    $scope.allTickets[index].data.lastUpdate = response.timeStamp;
-                    $scope.allTickets[index].data.answer.newText = '';
-                    $scope.allTickets[index]._rev = response.docRev;
+                    // update the copy
+                    ticket.data.answer.chat[lastMessage].timeStamp = response.timeStamp;
+                    ticket.data.lastUpdate = response.timeStamp;
+                    ticket._rev = response.docRev;
+                    // point to copy
+                    $scope.allTickets[index] = ticket;
+                    // $scope.allTickets[index].data.answer.chat[0].text = newText;
+                    // $scope.allTickets[index].data.answer.chat[0].timeStamp = response.timeStamp;
+                    // $scope.allTickets[index].data.lastUpdate = response.timeStamp;
+                    // $scope.allTickets[index]._rev = response.docRev;
                 })
                 .error(function(err){
                     console.log(err);

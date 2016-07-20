@@ -3,6 +3,10 @@
     color: black;
 }
 
+#resolversDropDown {
+    color: #000000;
+}
+
 .id {
     font-weight: bold;
 }
