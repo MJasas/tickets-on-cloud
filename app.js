@@ -242,12 +242,15 @@ app.get('/api/fetch/tickets', function(req, res){
 app.put('/api/update/ticket', function(req, res){
 	console.log('[Server]: managing update request with data:'+ JSON.stringify(req.body));
 	var ticket = req.body;
+	var timeStamp = new Date();
+	ticket.data.answer.chat[0].timeStamp = timeStamp.getTime();
+	ticket.data.lastUpdate = timeStamp.getTime();
 	db.insert(ticket, function(err, doc) {
 		if (err) {
 			console.log('[DB error]: ' + err);
 		} else {
 			console.log('[DB]: document updated -> ' + JSON.stringify(doc));
-			res.status(200).send(doc.rev);
+			res.json({docRev:doc.rev, timeStamp: timeStamp.getTime()});
 		}
 	});// End document update
 });

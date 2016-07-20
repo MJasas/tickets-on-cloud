@@ -74,8 +74,10 @@ angular.module('TicketsSupportApp')
                     console.log("response: ", response);
                     $scope.answState[index] = true;
                     $scope.allTickets[index].data.answer.chat[0].text = newText;
+                    $scope.allTickets[index].data.answer.chat[0].timeStamp = response.timeStamp;
+                    $scope.allTickets[index].data.lastUpdate = response.timeStamp;
                     $scope.allTickets[index].data.answer.newText = '';
-                    $scope.allTickets[index]._rev = response;
+                    $scope.allTickets[index]._rev = response.docRev;
                 })
                 .error(function(err){
                     console.log(err);

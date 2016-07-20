@@ -58,13 +58,16 @@
                             <h3 class="question-box"> Question: {{ ticket.data.question }} </h3> <span class="badge left-side">2 answers</span>
                         </div>
                         <div class="col-sm-2">
-                            Last update: {{ ticket.data.answer.chat[0].timeStamp | date : medium}}
+                            Last update:<br>{{ ticket.data.lastUpdate | date : 'medium'}}
                         </div>
                     </div>
                 </uib-accordion-heading>  
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
-                            <p> <span>Answer:</span> {{ ticket.data.answer.chat[0].text }}</p>
+                            <p> <span>{{ ticket.data.answer.chat[0].name }}:</span>
+                             {{ ticket.data.answer.chat[0].text }} 
+                             <span> {{ ticket.data.answer.chat[0].timeStamp | date : 'h:mm:ss a MMM d, y'}}</span>
+                             </p>
                         </div>
                     <form name="ticketAnswer">
                         <div class="form-group">
@@ -96,7 +99,23 @@
                         Raised by: {{ ticket.data.firstName }} {{ ticket.data.lastName }}
                     </div>
                     <div class="col-sm-4">
-                        Assigned to: --not implemented yet--
+                        
+                        <!-- Split button -->
+                        <div class="btn-group">
+                        <button type="button" class="btn btn-danger">Assigned to:{{ ticket.data.resolver }}</button>
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a>Gintautas</a></li>
+                            <li><a>Eimantas</a></li>
+                            <li><a>Evaldas</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a>more</a></li>
+                        </ul>
+                        </div>
+
                     </div>
                     <div class="col-sm-2">
                         <button type="button" class="btn btn-success"> Move to Q&A </button>
