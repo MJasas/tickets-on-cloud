@@ -7,7 +7,7 @@ angular.module('TicketsSupportApp')
         // Tickets Sorting
         $scope.sortButtons = ['id', 'status', 'type', 'priority', 'severity', 'application', 'region', 'inquier', 'resolver', 'creationTime', 'resolutionTime', 'lastUpdate'];
         // Resolvers
-        $scope.allResolvers = ['Resolver1', 'Resolver2', 'Resolver3']; //[{name:'Resolver1'}, {name:'Resolver2'}, {name:'Resolver3'}]; //['Resolver1', 'Resolver2', 'Resolver3'];
+        $scope.allResolvers = ['Resolver1', 'Resolver2', 'Resolver3'];
         // Ticket Search 
         $scope.sortType     = 'data.lastUpdate'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
@@ -66,7 +66,9 @@ angular.module('TicketsSupportApp')
         $scope.submitAnswer = function(index, newText){
             //copy and make modification
             var ticket = angular.copy($scope.allTickets[index]);
+            console.log(JSON.stringify(ticket));
             var lastMessage = ticket.data.answer.chat.length;
+            ticket
             // Push new answer to chat
             ticket.data.answer.chat.push({
                 name : ticket.data.resolver,
@@ -89,10 +91,6 @@ angular.module('TicketsSupportApp')
                     ticket._rev = response.docRev;
                     // point to copy
                     $scope.allTickets[index] = ticket;
-                    // $scope.allTickets[index].data.answer.chat[0].text = newText;
-                    // $scope.allTickets[index].data.answer.chat[0].timeStamp = response.timeStamp;
-                    // $scope.allTickets[index].data.lastUpdate = response.timeStamp;
-                    // $scope.allTickets[index]._rev = response.docRev;
                 })
                 .error(function(err){
                     console.log(err);

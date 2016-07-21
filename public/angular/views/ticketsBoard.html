@@ -102,7 +102,7 @@
                         <!-- Select field -->
                         <label>Assigned to:
                             <span  class="nullable">
-                                <select id="resolversDropDown" ng-model="ticket.data.resolver" ng-options="select as label for name in allResolvers" ng-click="trigerMe(ticket.data.resolver)">
+                                <select id="resolversDropDown" ng-model="ticket.data.resolver" ng-options="name for name in allResolvers" ng-click="trigerMe(ticket.data.resolver)">
                                 <option value="">-- choose resolver --</option>
                                 </select>
                             </span>
