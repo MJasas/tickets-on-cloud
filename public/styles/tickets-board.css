@@ -20,11 +20,14 @@
     margin: auto;
     width: 66.66%;
 }
+/***********************************/
+/*  Chat window                    */
+/***********************************/
 
-.sub-answer span{
-    font-weight: bold;
-}
 
+/***********************************/
+/*  Ticket status change           */
+/***********************************/
 .status-orange {
     font-family: Sans-serif;
     font: Arial;

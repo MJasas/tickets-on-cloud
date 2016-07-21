@@ -70,11 +70,7 @@ angular.module('TicketsSupportApp')
 
         }
 
-        $scope.submitAnswer = function(index, ticket){
-            //copy and make modification
-            var id = ticket.data.id;
-            console.log('index: ' + index);
-            console.log('id: ' + id);
+        $scope.submitAnswer = function(ticket){
             var lastMessage = ticket.data.answer.chat.length;
             // Push new answer to chat
             ticket.data.answer.chat.push({
@@ -89,17 +85,10 @@ angular.module('TicketsSupportApp')
                 data : ticket
             })
                 .success(function (response){
-                    //show answer
-                    // console.log("response: ", response);
-                    $scope.answState[index] = true;
-                    // update the copy
+                    // add response data
                     ticket.data.answer.chat[lastMessage].timeStamp = response.timeStamp;
                     ticket.data.lastUpdate = response.timeStamp;
                     ticket._rev = response.docRev;
-                    console.log('Ticket at [index] before: ' + JSON.stringify(ticket));
-                    // point to copy
-                    $scope.allTickets[index] = ticket;
-                    console.log('Ticket at [index] after: ' + JSON.stringify($scope.allTickets[index]));
                 })
                 .error(function(err){
                     console.log(err);

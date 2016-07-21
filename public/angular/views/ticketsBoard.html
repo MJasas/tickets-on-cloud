@@ -62,11 +62,22 @@
                 </uib-accordion-heading>  
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
-                            <p ng-repeat="post in ticket.data.answer.chat"> 
+                        <div class="row" ng-repeat="post in ticket.data.answer.chat">
+                            <div class="col-sm-3">
+                                <p>{{ post.name }}:</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <p>{{ post.text }}</p> 
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="left">{{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</p>
+                            </div> 
+                        </div>
+                            <!--<p ng-repeat="post in ticket.data.answer.chat"> 
                                 <span>{{ post.name }}:</span>
                                 {{ post.text }} 
-                                <span> {{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</span>
-                            </p>                        
+                                <span class="push-left"> {{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</span>
+                            </p>                        -->
                         </div>
                     <form name="ticketAnswer">
                         <div class="form-group">
@@ -82,7 +93,7 @@
                         <div class="form-group">
                             <input
                                 type="button"
-                                ng-click="submitAnswer($index, ticket)"
+                                ng-click="submitAnswer(ticket)"
                                 value="Submit answer"/>
                         </div>
                     </form>
