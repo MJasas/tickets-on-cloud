@@ -1,0 +1,142 @@
+<div class="row">
+    <h1>Ticket info page</h1>
+    <p>Feel free to edit ticket details if needed or post a comment to resolver.</p>
+    <br>
+    <h3 style="color:red;">Active ticket: {{ activeTicket }}</h3>
+    <div class="col-md-6">
+        <h4>Ticket details</h4>
+        <p>You can edit some parts</p>
+
+            <!--<form id="newTicketForm" class="form-horizontal" name="newTicketForm" role="form" novalidate>
+
+                <div class="form-group">
+                    <label for="ticketType" class="col-md-4 control-label">
+                        Please select type:
+                    </label>
+                    <div class="col-md-8">
+                        <select id="ticketType" name="typeSelectField" class="form-control" ng-model="newTicket.ticketType" required>
+                            <option value="typeA" selected>typeA</option>
+                            <option value="typeB">typeB</option>
+                            <option value="typeC">typeC</option>
+                        </select>
+                        <span ng-show="newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid">Please select ticket type.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="ticketPriority" class="col-md-4 control-label">
+                        Please select priority:
+                    </label>
+                    <div class="col-md-8">
+                        <select id="ticketPriority" name="prioritySelectField" class="form-control" ng-model="newTicket.ticketPriority" required>
+                            <option value="normal" selected>normal</option>
+                            <option value="important">important</option>
+                            <option value="urgent">urgent</option>
+                        </select>
+                        <span ng-show="newTicketForm.prioritySelectField.$touched && newTicketForm.prioritySelectField.$invalid">Please select ticket priority.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="application" class="col-md-4 control-label">
+                        Please select application:
+                    </label>
+                    <div class="col-md-8">
+                        <select id="application" name="applicationSelectField" class="form-control" ng-model="newTicket.application" required>
+                            <option value="appA" selected>appA</option>
+                            <option value="appB">appB</option>
+                            <option value="appC">appC</option>
+                        </select>
+                        <span ng-show="newTicketForm.applicationSelectField.$touched && newTicketForm.applicationSelectField.$invalid">Please select application name.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="region" class="col-md-4 control-label">
+                        Please select region:
+                    </label>
+                    <div class="col-md-8">
+                        <select id="region" name="regionSelectField" class="form-control" ng-model="newTicket.region" required>
+                            <option value="regionA" selected>Region A</option>
+                            <option value="regionB">Region B</option>
+                            <option value="regionC">Region C</option>
+                        </select>
+                        <span ng-show="newTicketForm.regionSelectField.$touched && newTicketForm.regionSelectField.$invalid">Please select region.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="firstName" class="col-md-4 control-label">
+                        First Name:
+                    </label>
+                    <div class="col-md-8">
+                        <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="newTicket.firstName" required/>
+                        <span ng-show="newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid">First name is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="col-md-4 control-label">
+                        Last Name:
+                    </label>
+                    <div class="col-md-8">
+                        <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="newTicket.lastName" required/>
+                        <span ng-show="newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid">Last name is required.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-md-4 control-label">
+                        Your e-mail:
+                    </label>
+                    <div class="col-md-8">
+                        <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="newTicket.email" required/>
+                        <span ng-show="newTicketForm.emailField.$touched && newTicketForm.emailField.$pristine">E-mail address is required.</span>
+                        <span ng-show="newTicketForm.emailField.$dirty && newTicketForm.emailField.$invalid">E-mail address is invalid.</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="question" class="col-md-4 control-label">
+                        Please describe your question:
+                    </label>
+                    <div class="col-md-8">
+                        <textarea rows="3" id="question" name="questionField" class="form-control" ng-model="newTicket.question" required/>
+                        <span ng-show="newTicketForm.questionField.$touched && newTicketForm.questionField.$invalid">Question is required.</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="button" class="col-md-4 control-label">
+                    </label>
+                    <div class="col-md-8">
+                        <button type="button" class="btn btn-primary" 
+                        ng-disabled="newTicketForm.typeSelectField.$pristine ||
+                                    newTicketForm.prioritySelectField.$pristine ||
+                                    newTicketForm.applicationSelectField.$pristine ||
+                                    newTicketForm.regionSelectField.$pristine ||
+                                    newTicketForm.firstNameField.$pristine ||
+                                    newTicketForm.lastNameField.$pristine ||
+                                    newTicketForm.emailField.$pristine ||
+                                    newTicketForm.questionField.$pristine ||
+                                    newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid ||
+                                    newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid ||
+                                    newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid ||
+                                    newTicketForm.emailField.$touched && newTicketForm.emailField.$invalid ||
+                                    newTicketForm.questionField$touched && newTicketForm.questionField.$invalid" 
+                        ng-click="submitForm()" value="Submit">
+                        Submit
+                        </button>
+                        <span ng-show="newTicketForm.$submitted">Your ticket has been submitted successfully.</span>
+                        <span class="reset" ng-click="resetForm()">Reset fields</span>
+                    </div>
+                </div>
+
+            </form>-->
+
+    </div>
+    <div class="col-md-6">
+        <h4>Question resolution</h4>
+        <p>You can post a new comment at the end of this chat:</p>
+    </div>
+
+
+
+
+	    <button class="btn-primary" ng-click=redirect()>Back to main page</button>
+
+    </div>
+</div>

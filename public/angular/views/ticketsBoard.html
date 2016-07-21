@@ -63,11 +63,8 @@
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
                         <div class="row" ng-repeat="post in ticket.data.answer.chat">
-                            <div class="col-sm-3">
-                                <p>{{ post.name }}:</p>
-                            </div>
-                            <div class="col-sm-6">
-                                <p>{{ post.text }}</p> 
+                            <div class="col-sm-9">
+                                <p>{{ post.name }}: <span>{{ post.text }}</span></p>
                             </div>
                             <div class="col-sm-3">
                                 <p class="left">{{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</p>

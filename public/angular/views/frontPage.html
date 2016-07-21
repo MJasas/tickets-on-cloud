@@ -30,14 +30,14 @@
                 class="form-control"
                 type="text" 
                 name="searchTicket" 
-                ng-model="ticket.id"
+                ng-model="id"
                 placeholder="Enter ticket id number"
                 required/>
             <br/>
             <button
                 type="button"
                 class="btn btn-primary form-control"
-                ng-click="checkTicket()">
+                ng-click="checkTicket(id)">
                 Check
             </button>
         </div>

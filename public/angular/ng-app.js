@@ -116,6 +116,10 @@ angular.module('TicketsSupportApp').config(function($routeProvider) {
         templateUrl: 'angular/views/frontPage.html',
         controller: 'FrontPageCtrl'
     }).
+    when('/ticket/id/:ticketID', {
+        templateUrl: 'angular/views/singleTicketPage.html',
+        controller: 'SingleTicketPageCtrl'
+    }).
     when('/submit/new-ticket', {
         templateUrl: 'angular/views/submitForm.html',
         controller: 'SubmitNewTicketCtrl'
