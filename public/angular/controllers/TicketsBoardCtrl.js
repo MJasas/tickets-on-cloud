@@ -10,7 +10,7 @@ angular.module('TicketsSupportApp')
         $scope.allResolvers = ['Resolver1', 'Resolver2', 'Resolver3'];
         // Ticket Search 
         $scope.sortType     = 'data.lastUpdate'; // set the default sort type
-        $scope.sortReverse  = false;  // set the default sort order
+        $scope.sortReverse  = true;  // set the default sort order
         $scope.searchTicket   = '';     // set the default search/filter term
         // Change sorting type
         $scope.sortBy = function(sortType) {
@@ -62,17 +62,24 @@ angular.module('TicketsSupportApp')
             console.log(who);
         }
 
+        function findTicket(id) {
+            return 
+        }
 
-        $scope.submitAnswer = function(index, newText){
+        function updateTicket(id) {
+
+        }
+
+        $scope.submitAnswer = function(index, ticket){
             //copy and make modification
-            var ticket = angular.copy($scope.allTickets[index]);
-            console.log(JSON.stringify(ticket));
+            var id = ticket.data.id;
+            console.log('index: ' + index);
+            console.log('id: ' + id);
             var lastMessage = ticket.data.answer.chat.length;
-            ticket
             // Push new answer to chat
             ticket.data.answer.chat.push({
                 name : ticket.data.resolver,
-                text : newText
+                text : ticket.data.answer.newText
             });
             ticket.data.answer.newText = ''; // clear input
             //send ticket update req to server
@@ -83,14 +90,16 @@ angular.module('TicketsSupportApp')
             })
                 .success(function (response){
                     //show answer
-                    console.log("response: ", response);
+                    // console.log("response: ", response);
                     $scope.answState[index] = true;
                     // update the copy
                     ticket.data.answer.chat[lastMessage].timeStamp = response.timeStamp;
                     ticket.data.lastUpdate = response.timeStamp;
                     ticket._rev = response.docRev;
+                    console.log('Ticket at [index] before: ' + JSON.stringify(ticket));
                     // point to copy
                     $scope.allTickets[index] = ticket;
+                    console.log('Ticket at [index] after: ' + JSON.stringify($scope.allTickets[index]));
                 })
                 .error(function(err){
                     console.log(err);

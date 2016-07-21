@@ -5,9 +5,7 @@
     <h2>Submited Tickets</h2>
 
      <div class="alert alert-info">
-        <p>Sort Type: {{ sortType }}</p>
-        <p>Sort Reverse: {{ sortReverse }}</p>
-        <p>Search Query: {{ searchTicket }}</p>
+        <p>Sort Type: {{ sortType }}  |  Sort Reverse: {{ sortReverse }}  |  Search Query: {{ searchTicket }}</p>
     </div>
     <div class="btn-group btn-group-justified">
         <div class="btn-group" ng-repeat="button in sortButtons">
@@ -55,7 +53,7 @@
                             <h5 class="status-orange">NEW</h5>
                         </div>
                         <div class="col-sm-8">
-                            <h3 class="question-box"> Question: {{ ticket.data.question }} </h3> <span class="badge left-side">2 answers</span>
+                            <h3 class="question-box"> Question: {{ ticket.data.question }} </h3> <span class="badge left-side">{{ ticket.data.answer.chat.length }} answers</span>
                         </div>
                         <div class="col-sm-2">
                             Last update:<br>{{ ticket.data.lastUpdate | date : 'medium'}}
@@ -64,14 +62,15 @@
                 </uib-accordion-heading>  
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
-                            <p> <span>{{ ticket.data.answer.chat[0].name }}:</span>
-                             {{ ticket.data.answer.chat[0].text }} 
-                             <span> {{ ticket.data.answer.chat[0].timeStamp | date : 'h:mm:ss a MMM d, y'}}</span>
-                             </p>
+                            <p ng-repeat="post in ticket.data.answer.chat"> 
+                                <span>{{ post.name }}:</span>
+                                {{ post.text }} 
+                                <span> {{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</span>
+                            </p>                        
                         </div>
                     <form name="ticketAnswer">
                         <div class="form-group">
-                            <label for="answer">Respond with answer:</label>
+                            <label for="answer">Respond with new answer:</label>
                             <textarea
                                 id="answer" 
                                 name="answer"
@@ -83,7 +82,7 @@
                         <div class="form-group">
                             <input
                                 type="button"
-                                ng-click="submitAnswer($index, ticket.data.answer.newText)"
+                                ng-click="submitAnswer($index, ticket)"
                                 value="Submit answer"/>
                         </div>
                     </form>

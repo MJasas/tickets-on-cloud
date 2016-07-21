@@ -82,8 +82,6 @@ function initDBConnection() {
 		// Crediantials to Cloudant Service
 		dbCredentials.host = "a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
 		dbCredentials.port = 443;
-		dbCredentials.user = "a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix";
-		dbCredentials.password = "15e7ca4b1b69f3457e080450e03fcd82f7c1ced9597c441a670f510036514add";
 		dbCredentials.url = "https://a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix:15e7ca4b1b69f3457e080450e03fcd82f7c1ced9597c441a670f510036514add@a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
 		
 		cloudant = require('cloudant')(dbCredentials.url);
