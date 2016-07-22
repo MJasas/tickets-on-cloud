@@ -125,10 +125,9 @@ function createResponseData(id, rev, name, ticketData, attachments) {
 	return responseData;
 };
 
-// Routing
-app.get('/main', function(req, res){
-	res.send('index.html');
-});
+/*********************************
+Route POST endpoint
+*********************************/
 
 app.post('/api/new-ticket/submit', function(req, res){
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
@@ -171,6 +170,49 @@ app.post('/api/new-ticket/submit', function(req, res){
 			res.status(303).send('Your ticket has been submited successfully.'); //this is part of Post/Redirect/Get pattern
 		}
 	});// End document insert
+});
+
+/*********************************
+Route GET endpoint
+*********************************/
+// send main page
+app.get('/main', function(req, res){
+	res.send('index.html');
+});
+
+// search for single ticket
+app.get('/api/get/ticket/:ticketID', function(req, res){
+	var ticketID = req.params.ticketID;
+	var isFound = false;
+	var count = 0;
+	// list all docs in db
+	db.list(function(err, body){
+		if (err) {
+			console.log('[DB error] ' + err);
+		} 
+		else {
+			var len = body.rows.length;
+			console.log('[DB]: Success! Total of docs -> ' + len);
+			if (len == 0) {
+				res.send('No documents found.');
+			} else {
+				// Search in each document
+				body.rows.forEach(function(document) {
+					db.get(document.id, { revs_info: false }, function(err, ticket) { // here ticket refers to doc
+						if (err) {
+							console.log('[DB error]: ' + err);
+						} else {
+							count++;
+							if ( ticket.data.id == ticketID ) {
+								res.json(ticket);
+								//isFound = true;
+							}
+						}
+					}); //end db get
+				}); // end db forEach
+			}
+		}
+	}); // end db list
 });
 
 app.get('/api/fetch/tickets', function(req, res){
