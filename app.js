@@ -36,25 +36,27 @@ if ('development' == app.get('env')) {
 	app.use(errorHandler());
 }
 
-var db; // data base variable
-var cloudant // instance of cloudant 
-var dbCredentials = {
-	dbName : 'ibptickets'
-};
+// cloudant.db.list(function(err, allDbs) {
+// 	console.log('All my databases: %s', allDbs.join(', '))
+// });
 
-// instantiate database (by default to db variable)
-initDBConnection();
+// make connection to tickets databases
+var db;
+connectToCloudant('ibptickets');
 
 //--------------------------------------
 // Utilities
 //--------------------------------------
-function initDBConnection() {
-	var allBds = [];
+function connectToCloudant(dbName) {
+	var cloudant;
+	var dbCredentials = {
+		dbName: dbName
+	};
+
+	console.log('Connecting to database: ' + dbName)
 	if(process.env.VCAP_SERVICES) {
+		// Bluemix environment
 		var vcapServices = JSON.parse(process.env.VCAP_SERVICES);
-		// Pattern match to find the first instance of a Cloudant service in
-		// VCAP_SERVICES. If you know your service key, you can access the
-		// service credentials directly by using the vcapServices object.
 		for(var vcapService in vcapServices){
 			if(vcapService.match(/cloudant/i)){
 				dbCredentials.host = vcapServices[vcapService][0].credentials.host;
@@ -79,29 +81,44 @@ function initDBConnection() {
 			console.warn('Could not find Cloudant credentials in VCAP_SERVICES environment variable - data will be unavailable to the UI');
 		}
 	} else{
-		// Crediantials to Cloudant Service
+		// localhost environment
 		dbCredentials.host = "a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
 		dbCredentials.port = 443;
 		dbCredentials.url = "https://a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix:15e7ca4b1b69f3457e080450e03fcd82f7c1ced9597c441a670f510036514add@a94ae631-6468-428f-bef9-ab07fe0fdbc9-bluemix.cloudant.com";
-		
 		cloudant = require('cloudant')(dbCredentials.url);
+		
 		// check if DB exists if not create
-		cloudant.db.create(dbCredentials.dbName, function (err, res) {
-			if (err) { console.log('could not create db ', err); }
-		});
-		// use existing data base
-		db = cloudant.db.use(dbCredentials.dbName);
-
-		if (db==null){
-			console.warn('[DB]: Not connected. Data will be unavailable to the UI');
-		}else{
-			console.warn('DB status: connected to ' + dbCredentials.dbName);
-		}
+		cloudant.db.get(dbCredentials.dbName, function(err, res) {
+			if (!err) {
+				// connect to database
+				db = cloudant.db.use(dbCredentials.dbName);
+				if (db!=null){
+					console.log('Connected!');
+					console.log('Database info: ' + res);
+				}else{
+					console.log('Not connected.');
+				}
+			} else {
+				console.log('[DB]: ' + err);
+				console.log('Creating new database: ' + dbCredentials.dbName);
+				cloudant.db.create(dbCredentials.dbName, function (err, res) {
+					if (!err) { 
+						console.log(res);
+						// connect to database
+						db = cloudant.db.use(dbCredentials.dbName);
+						if (connection!=null){
+							console.log('Connected!');
+							console.log('Database info: ' + res);
+						}else{
+							console.log('Not connected.');
+						}
+					} else {
+						console.log('[DB]: ', err);
+					}
+				});
+			}
+		}); // end of db connection
 	}
-
-	cloudant.db.list(function(err, allDbs) {
-		console.log('All my databases: %s', allDbs.join(', '))
-	});
 };
 
 function createResponseData(id, rev, name, ticketData, attachments) {

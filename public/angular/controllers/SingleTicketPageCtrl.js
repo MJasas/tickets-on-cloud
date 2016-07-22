@@ -5,14 +5,21 @@ angular.module('TicketsSupportApp')
     .controller('SingleTicketPageCtrl', function($scope, $routeParams, $http, $location, ticketSrv){
         // Get id from path
         var id = $routeParams.ticketID;
+        // utility functions
+
         // Call ticket service
         ticketSrv.getTicket(id)
             .then(function(data) {
-                $scope.activeTicket = data;
+                manageActiveTicket(data);
             }, function (err) {
                 console.log(err);
             });
-
+        
+        function manageActiveTicket(ticket) {
+            $scope.activeTicket = ticket.data;
+            var originalTicket = angular.copy($scope.activeTicket);
+        }
+        
         // Make an original copy of ticket details
         // var originalTicket = angular.copy();
         // Reset changes

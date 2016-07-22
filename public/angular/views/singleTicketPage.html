@@ -2,81 +2,81 @@
     <h1>Ticket info page</h1>
     <p>Feel free to edit ticket details if needed or post a comment to resolver.</p>
     <br>
-    <h3 style="color:red;">Active ticket: {{ activeTicket.data.id }}</h3>
+    <h3 style="color:red;">Active ticket: {{ activeTicket.id }}</h3>
     <div class="col-md-6">
         <h4>Ticket details</h4>
         <p>You can edit some parts</p>
 
-            <!--<form id="newTicketForm" class="form-horizontal" name="newTicketForm" role="form" novalidate>
+            <form id="activeTicketForm" class="form-horizontal" name="activeTicketForm" role="form" novalidate>
 
                 <div class="form-group">
                     <label for="ticketType" class="col-md-4 control-label">
-                        Please select type:
+                        Type:
                     </label>
                     <div class="col-md-8">
-                        <select id="ticketType" name="typeSelectField" class="form-control" ng-model="newTicket.ticketType" required>
-                            <option value="typeA" selected>typeA</option>
+                        <select id="ticketType" name="typeSelectField" class="form-control" ng-model="activeTicket.type" required>
+                            <option value="typeA">typeA</option>
                             <option value="typeB">typeB</option>
                             <option value="typeC">typeC</option>
                         </select>
-                        <span ng-show="newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid">Please select ticket type.</span>
+                        <span ng-show="activeTicketForm.typeSelectField.$touched && activeTicketForm.typeSelectField.$invalid">Please select ticket type.</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="ticketPriority" class="col-md-4 control-label">
-                        Please select priority:
+                        Priority:
                     </label>
                     <div class="col-md-8">
-                        <select id="ticketPriority" name="prioritySelectField" class="form-control" ng-model="newTicket.ticketPriority" required>
-                            <option value="normal" selected>normal</option>
+                        <select id="ticketPriority" name="prioritySelectField" class="form-control" ng-model="activeTicket.priority" required>
+                            <option value="normal">normal</option>
                             <option value="important">important</option>
                             <option value="urgent">urgent</option>
                         </select>
-                        <span ng-show="newTicketForm.prioritySelectField.$touched && newTicketForm.prioritySelectField.$invalid">Please select ticket priority.</span>
+                        <span ng-show="activeTicketForm.prioritySelectField.$touched && activeTicketForm.prioritySelectField.$invalid">Please select ticket priority.</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="application" class="col-md-4 control-label">
-                        Please select application:
+                        Application:
                     </label>
                     <div class="col-md-8">
-                        <select id="application" name="applicationSelectField" class="form-control" ng-model="newTicket.application" required>
-                            <option value="appA" selected>appA</option>
+                        <select id="application" name="applicationSelectField" class="form-control" ng-model="activeTicket.application" required>
+                            <option value="appA">appA</option>
                             <option value="appB">appB</option>
                             <option value="appC">appC</option>
                         </select>
-                        <span ng-show="newTicketForm.applicationSelectField.$touched && newTicketForm.applicationSelectField.$invalid">Please select application name.</span>
+                        <span ng-show="activeTicketForm.applicationSelectField.$touched && activeTicketForm.applicationSelectField.$invalid">Please select application name.</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="region" class="col-md-4 control-label">
-                        Please select region:
+                        Region:
                     </label>
                     <div class="col-md-8">
-                        <select id="region" name="regionSelectField" class="form-control" ng-model="newTicket.region" required>
-                            <option value="regionA" selected>Region A</option>
+                        <select id="region" name="regionSelectField" class="form-control" ng-model="activeTicket.region" required>
+                            <option value="regionA">Region A</option>
                             <option value="regionB">Region B</option>
                             <option value="regionC">Region C</option>
                         </select>
-                        <span ng-show="newTicketForm.regionSelectField.$touched && newTicketForm.regionSelectField.$invalid">Please select region.</span>
+                        <span ng-show="activeTicketForm.regionSelectField.$touched && activeTicketForm.regionSelectField.$invalid">Please select region.</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="firstName" class="col-md-4 control-label">
-                        First Name:
+                        Your name:
                     </label>
                     <div class="col-md-8">
-                        <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="newTicket.firstName" required/>
-                        <span ng-show="newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid">First name is required.</span>
+                        <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="activeTicket.firstName" required/>
+                        <span ng-show="activeTicketForm.firstNameField.$touched && activeTicketForm.firstNameField.$invalid">First name is required.</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="lastName" class="col-md-4 control-label">
-                        Last Name:
+                        Your last name:
                     </label>
                     <div class="col-md-8">
-                        <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="newTicket.lastName" required/>
-                        <span ng-show="newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid">Last name is required.</span>
+                        <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="activeTicket.lastName" required/>
+                        <span ng-show="activeTicketForm.lastNameField.$touched && activeTicketForm.lastNameField.$invalid">Last name is required.</span>
                     </div>
                 </div>
                 <div class="form-group">
@@ -84,18 +84,9 @@
                         Your e-mail:
                     </label>
                     <div class="col-md-8">
-                        <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="newTicket.email" required/>
-                        <span ng-show="newTicketForm.emailField.$touched && newTicketForm.emailField.$pristine">E-mail address is required.</span>
-                        <span ng-show="newTicketForm.emailField.$dirty && newTicketForm.emailField.$invalid">E-mail address is invalid.</span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="question" class="col-md-4 control-label">
-                        Please describe your question:
-                    </label>
-                    <div class="col-md-8">
-                        <textarea rows="3" id="question" name="questionField" class="form-control" ng-model="newTicket.question" required/>
-                        <span ng-show="newTicketForm.questionField.$touched && newTicketForm.questionField.$invalid">Question is required.</span>
+                        <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="activeTicket.email" required/>
+                        <span ng-show="activeTicketForm.emailField.$touched && activeTicketForm.emailField.$pristine">E-mail address is required.</span>
+                        <span ng-show="activeTicketForm.emailField.$dirty && activeTicketForm.emailField.$invalid">E-mail address is invalid.</span>
                     </div>
                 </div>
 
@@ -104,28 +95,27 @@
                     </label>
                     <div class="col-md-8">
                         <button type="button" class="btn btn-primary" 
-                        ng-disabled="newTicketForm.typeSelectField.$pristine ||
-                                    newTicketForm.prioritySelectField.$pristine ||
-                                    newTicketForm.applicationSelectField.$pristine ||
-                                    newTicketForm.regionSelectField.$pristine ||
-                                    newTicketForm.firstNameField.$pristine ||
-                                    newTicketForm.lastNameField.$pristine ||
-                                    newTicketForm.emailField.$pristine ||
-                                    newTicketForm.questionField.$pristine ||
-                                    newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid ||
-                                    newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid ||
-                                    newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid ||
-                                    newTicketForm.emailField.$touched && newTicketForm.emailField.$invalid ||
-                                    newTicketForm.questionField$touched && newTicketForm.questionField.$invalid" 
-                        ng-click="submitForm()" value="Submit">
-                        Submit
+                        ng-disabled="activeTicketForm.typeSelectField.$pristine ||
+                                    activeTicketForm.prioritySelectField.$pristine ||
+                                    activeTicketForm.applicationSelectField.$pristine ||
+                                    activeTicketForm.regionSelectField.$pristine ||
+                                    activeTicketForm.firstNameField.$pristine ||
+                                    activeTicketForm.lastNameField.$pristine ||
+                                    activeTicketForm.emailField.$pristine ||
+                                    activeTicketForm.questionField.$pristine ||
+                                    activeTicketForm.typeSelectField.$touched && activeTicketForm.typeSelectField.$invalid ||
+                                    activeTicketForm.firstNameField.$touched && activeTicketForm.firstNameField.$invalid ||
+                                    activeTicketForm.lastNameField.$touched && activeTicketForm.lastNameField.$invalid ||
+                                    activeTicketForm.emailField.$touched && activeTicketForm.emailField.$invalid" 
+                        ng-click="updateDetails()" value="Update details">
+                        Update details
                         </button>
-                        <span ng-show="newTicketForm.$submitted">Your ticket has been submitted successfully.</span>
-                        <span class="reset" ng-click="resetForm()">Reset fields</span>
+                        <span ng-show="activeTicketForm.$submitted">Your ticket has been submitted successfully.</span>
+                        <span class="reset" ng-click="resetForm()">Reset changes</span>
                     </div>
                 </div>
 
-            </form>-->
+            </form>
 
     </div>
     <div class="col-md-6">
@@ -136,7 +126,7 @@
 
 
 
-	    <button class="btn-primary" ng-click=redirect()>Back to main page</button>
+	    <button class="btn btn-primary" ng-click=redirect()>Back to main page</button>
 
     </div>
 </div>
