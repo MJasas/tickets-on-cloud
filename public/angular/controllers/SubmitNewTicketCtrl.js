@@ -41,8 +41,7 @@ angular.module('TicketsSupportApp')
                 });
         };
 
-        // test
-        $scope.redirect = function(){
+        function redirect(){
             console.log(JSON.stringify($location.path()));
             $location.path('#/main').replace();
         };
