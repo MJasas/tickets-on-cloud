@@ -1,8 +1,8 @@
 <div class="row">
     <h1>Ticket info page</h1>
     <p>Feel free to edit ticket details if needed or post a comment to resolver.</p>
-    <br>
-    <h3 style="color:red;">Active ticket: {{ activeTicket.id }}</h3>
+
+    <h3>Active ticket: {{ activeTicket.data.id }}</h3>
     <div class="col-md-6">
         <h4>Ticket details</h4>
         <p>You can edit some parts</p>
@@ -14,7 +14,7 @@
                         Type:
                     </label>
                     <div class="col-md-8">
-                        <select id="ticketType" name="typeSelectField" class="form-control" ng-model="activeTicket.type" required>
+                        <select id="ticketType" name="typeSelectField" class="form-control" ng-model="activeTicket.data.type" required>
                             <option value="typeA">typeA</option>
                             <option value="typeB">typeB</option>
                             <option value="typeC">typeC</option>
@@ -27,7 +27,7 @@
                         Priority:
                     </label>
                     <div class="col-md-8">
-                        <select id="ticketPriority" name="prioritySelectField" class="form-control" ng-model="activeTicket.priority" required>
+                        <select id="ticketPriority" name="prioritySelectField" class="form-control" ng-model="activeTicket.data.priority" required>
                             <option value="normal">normal</option>
                             <option value="important">important</option>
                             <option value="urgent">urgent</option>
@@ -40,7 +40,7 @@
                         Application:
                     </label>
                     <div class="col-md-8">
-                        <select id="application" name="applicationSelectField" class="form-control" ng-model="activeTicket.application" required>
+                        <select id="application" name="applicationSelectField" class="form-control" ng-model="activeTicket.data.application" required>
                             <option value="appA">appA</option>
                             <option value="appB">appB</option>
                             <option value="appC">appC</option>
@@ -53,7 +53,7 @@
                         Region:
                     </label>
                     <div class="col-md-8">
-                        <select id="region" name="regionSelectField" class="form-control" ng-model="activeTicket.region" required>
+                        <select id="region" name="regionSelectField" class="form-control" ng-model="activeTicket.data.region" required>
                             <option value="regionA">Region A</option>
                             <option value="regionB">Region B</option>
                             <option value="regionC">Region C</option>
@@ -66,7 +66,7 @@
                         Your name:
                     </label>
                     <div class="col-md-8">
-                        <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="activeTicket.firstName" required/>
+                        <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="activeTicket.data.firstName" required/>
                         <span ng-show="activeTicketForm.firstNameField.$touched && activeTicketForm.firstNameField.$invalid">First name is required.</span>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                         Your last name:
                     </label>
                     <div class="col-md-8">
-                        <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="activeTicket.lastName" required/>
+                        <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="activeTicket.data.lastName" required/>
                         <span ng-show="activeTicketForm.lastNameField.$touched && activeTicketForm.lastNameField.$invalid">Last name is required.</span>
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                         Your e-mail:
                     </label>
                     <div class="col-md-8">
-                        <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="activeTicket.email" required/>
+                        <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="activeTicket.data.email" required/>
                         <span ng-show="activeTicketForm.emailField.$touched && activeTicketForm.emailField.$pristine">E-mail address is required.</span>
                         <span ng-show="activeTicketForm.emailField.$dirty && activeTicketForm.emailField.$invalid">E-mail address is invalid.</span>
                     </div>
@@ -121,5 +121,35 @@
     <div class="col-md-6">
         <h4>Question resolution</h4>
         <p>You can post a new comment at the end of this chat:</p>
+        <div class="answer-container">
+                    <div class="sub-answer">
+                        <div class="row" ng-repeat="post in activeTicket.data.answer.chat">
+                            <div class="col-sm-9">
+                                <p>{{ post.name }}: <span>{{ post.text }}</span></p>
+                            </div>
+                            <div class="col-sm-3">
+                                <p class="left">{{ post.timeStamp | date : 'h:mm:ss a MMM d, y'}}</p>
+                            </div> 
+                        </div>
+                    </div>
+                    <form name="ticketAnswer">
+                        <div class="form-group">
+                            <label for="post">Write a comment:</label>
+                            <textarea
+                                id="post" 
+                                name="post"
+                                class="form-control" 
+                                ng-model="activeTicket.data.answer.newText"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input
+                                type="button"
+                                ng-click="submitPost(activeTicket)"
+                                value="Submit post"/>
+                        </div>
+                    </form>
+                </div>
     </div>
 </div>

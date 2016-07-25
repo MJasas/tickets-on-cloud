@@ -16,7 +16,7 @@ angular.module('TicketsSupportApp')
             });
         
         function manageActiveTicket(ticket) {
-            $scope.activeTicket = ticket.data;
+            $scope.activeTicket = ticket;
             var originalTicket = angular.copy($scope.activeTicket);
         }
         
@@ -28,38 +28,31 @@ angular.module('TicketsSupportApp')
         // }
 
 
-        // Submit new ticket
-        $scope.submitForm = function(){
-            // Submit form data
-            var formData = {
-                type : $scope.newTicket.ticketType,
-                priority : $scope.newTicket.ticketPriority,
-                application : $scope.newTicket.application,
-                region : $scope.newTicket.region,
-                firstName : $scope.newTicket.firstName,
-                lastName : $scope.newTicket.lastName,
-                email : $scope.newTicket.email,
-                question : $scope.newTicket.question,
-                fileAttachment : []
-            };
-            // Send 
+        $scope.submitPost = function(ticket){
+            var lastMessage = ticket.data.answer.chat.length;
+            // Push new post to chat
+            firstLastName = ticket.data.firstName + ' ' + ticket.data.lastName;
+            ticket.data.answer.chat.push({ 
+                name : firstLastName,
+                text : ticket.data.answer.newText
+            });
+            ticket.data.answer.newText = ''; // clear input
+            //send ticket update req to server
             $http({
-                method : "POST",
-                url : "api/new-ticket/submit",
-                data : formData
+                method : "PUT",
+                url : "api/update/ticket/",
+                data : ticket
             })
                 .success(function (response){
-                    $location.path('#/main').replace();
+                    // add response data
+                    ticket.data.answer.chat[lastMessage].timeStamp = response.timeStamp;
+                    ticket.data.lastUpdate = response.timeStamp;
+                    ticket._rev = response.docRev;
                 })
                 .error(function(err){
                     console.log(err);
                 });
-        };
 
-        // test
-        $scope.redirect = function(){
-            console.log(JSON.stringify($location.path()));
-            $location.path('#/main').replace();
         };
 
     });
