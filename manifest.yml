@@ -3,8 +3,8 @@ applications:
   memory: 512M
   instances: 1
   domain: w3ibm.mybluemix.net
-  name: tickets-eimantas
-  host: tickets-eimantas
+  name: tickets-on-cloud
+  host: tickets-on-cloud
   disk_quota: 1024M
   services:
   - Cloudant NoSQL DB-du

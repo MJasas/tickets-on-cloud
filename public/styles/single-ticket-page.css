@@ -1,0 +1,22 @@
+.infoContainer {
+    background: #26333e;
+    margin: 0px;
+    border-radius: 3px;
+}
+
+.infoTitle {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 3px;
+    text-align: center;
+    background: #5eacf7;
+    color: #26333e;
+}
+
+.chat-container {
+    height: 400px;
+    overflow: auto;
+}
+#activeTicketForm, #ticketAnswerForm {
+    padding: 0px 12px 12px 0px;
+}

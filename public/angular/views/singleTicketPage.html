@@ -1,14 +1,47 @@
 <div class="row">
-    <h1>Ticket info page</h1>
-    <p>Feel free to edit ticket details if needed or post a comment to resolver.</p>
+    <div class="container-fluid">
+        <h1>Ticket info page</h1>
+        <p>Feel free to edit ticket details if needed or post a comment to resolver.</p>
+    </div>
 
-    <h3>Active ticket: {{ activeTicket.data.id }}</h3>
-    <div class="col-md-6">
-        <h4>Ticket details</h4>
-        <p>You can edit some parts</p>
+    <div class="container col-md-6">
+        <div class="infoContainer">
+            <h4 class=infoTitle>Your ticket ID: {{ activeTicket.data.id }}</h4>
 
             <form id="activeTicketForm" class="form-horizontal" name="activeTicketForm" role="form" novalidate>
 
+                <div class="form-group">
+                    <label for="creationTime" class="col-md-4 control-label">
+                        Created:
+                    </label>
+                    <div class="col-md-8">
+                        <p class="form-control-static">{{ activeTicket.data.creationTime | date : 'h:mm:ss a MMM d, y'}}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status" class="col-md-4 control-label">
+                        Status:
+                    </label>
+                    <div class="col-md-8">
+                        <p class="form-control-static">{{ activeTicket.data.status }}</p>
+                    </div>
+                </div>
+                 <div class="form-group">
+                    <label for="resolver" class="col-md-4 control-label">
+                        Resolver:
+                    </label>
+                    <div class="col-md-8">
+                        <p class="form-control-static">{{ activeTicket.data.resolver }}</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="severity" class="col-md-4 control-label">
+                        Severity:
+                    </label>
+                    <div class="col-md-8">
+                        <p class="form-control-static">{{ activeTicket.data.severity }}</p>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="ticketType" class="col-md-4 control-label">
                         Type:
@@ -116,13 +149,13 @@
                 </div>
 
             </form>
-
+        </div> 
     </div>
     <div class="col-md-6">
-        <h4>Question resolution</h4>
-        <p>You can post a new comment at the end of this chat:</p>
-        <div class="answer-container">
-                    <div class="sub-answer">
+        <div class="infoContainer">
+            <h4 class=infoTitle>Question resolution</h4>
+                <div class="answer-container">
+                    <div class="chat-container">
                         <div class="row" ng-repeat="post in activeTicket.data.answer.chat">
                             <div class="col-sm-9">
                                 <p>{{ post.name }}: <span>{{ post.text }}</span></p>
@@ -132,7 +165,7 @@
                             </div> 
                         </div>
                     </div>
-                    <form name="ticketAnswer">
+                    <form id="ticketAnswerForm" name="ticketAnswer">
                         <div class="form-group">
                             <label for="post">Write a comment:</label>
                             <textarea
@@ -145,11 +178,13 @@
                         </div>
                         <div class="form-group">
                             <input
+                                class="btn btn-primary"
                                 type="button"
                                 ng-click="submitPost(activeTicket)"
                                 value="Submit post"/>
                         </div>
                     </form>
                 </div>
+        </div>
     </div>
 </div>
