@@ -40,12 +40,12 @@
         <!--panels group -->
         <div class="panel-group" ng-repeat="ticket in allTickets | orderBy: sortType : sortReverse | filter:searchTicket">
             <!--Ticket meta part-->
-            <uib-accordion-group heading="Meta info from database (click to expand)">
-            Document ID: {{ticket._id}} <br>
-            Document rev: {{ticket._rev}} <br>
-            Document name: {{ticket.name}} <br>
-            Attachments: {{ticket.attachments}} <br>
-            </uib-accordion-group>
+                <!--<uib-accordion-group heading="Meta info from database (click to expand)">
+                Document ID: {{ticket._id}} <br>
+                Document rev: {{ticket._rev}} <br>
+                Document name: {{ticket.name}} <br>
+                Attachments: {{ticket.attachments}} <br>
+                </uib-accordion-group>-->
             <!--Ticket middle part-->
             <uib-accordion-group>
                 <uib-accordion-heading>
@@ -97,7 +97,8 @@
             <div class="panel panel-footer">
                 <div class="row">
                     <div class="col-sm-2">
-                        Category (type): {{ ticket.data.ticketType }}
+                        Type: {{ ticket.data.type }} <br>
+                        Priority: {{ ticket.data.priority }}
                     </div>
                     <div class="col-sm-4">
                         Raised by: {{ ticket.data.firstName }} {{ ticket.data.lastName }}
