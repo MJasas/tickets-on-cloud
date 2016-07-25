@@ -5,12 +5,13 @@ angular.module('TicketsSupportApp')
     .controller('SingleTicketPageCtrl', function($scope, $routeParams, $http, $location, ticketSrv){
         // Get id from path
         var id = $routeParams.ticketID;
-        // utility functions
-
+        // start loading icon
+        $scope.isLoading = true;
         // Call ticket service
         ticketSrv.getTicket(id)
             .then(function(data) {
                 manageActiveTicket(data);
+                $scope.isLoading = false;
             }, function (err) {
                 console.log(err);
             });

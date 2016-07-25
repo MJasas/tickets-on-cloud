@@ -7,8 +7,8 @@
     <div class="container col-md-6">
         <div class="infoContainer">
             <h4 class=infoTitle>Your ticket ID: {{ activeTicket.data.id }}</h4>
-
-            <form id="activeTicketForm" class="form-horizontal" name="activeTicketForm" role="form" novalidate>
+            <img ng-src="images/spinner.gif" class="spinner" name="spiningIcon1" ng-show="isLoading" alt="Loading.."/>
+            <form id="activeTicketForm" class="form-horizontal" name="activeTicketForm" role="form" novalidate ng-show="!isLoading">
 
                 <div class="form-group">
                     <label for="creationTime" class="col-md-4 control-label">
@@ -154,7 +154,8 @@
     <div class="col-md-6">
         <div class="infoContainer">
             <h4 class=infoTitle>Question resolution</h4>
-                <div class="answer-container">
+            <img ng-src="images/spinner.gif" class="spinner" name="spiningIcon1" ng-show="isLoading" alt="Loading.."/>
+                <div class="answer-container" ng-show="!isLoading">
                     <div class="chat-container">
                         <div class="row" ng-repeat="post in activeTicket.data.answer.chat">
                             <div class="col-sm-9">
