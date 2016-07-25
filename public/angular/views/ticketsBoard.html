@@ -33,7 +33,9 @@
             </div>      
         </div>
     </form>
-    <!--<h4>Scoll down to load more</h4>-->
+    <!--Loading icon appears here-->
+    <img ng-src="images/spinner.gif" class="spinner" name="spiningIcon" ng-show="isLoading" alt="Loading.."/>
+   
     <uib-accordion>
         <!--panels group -->
         <div class="panel-group" ng-repeat="ticket in allTickets | orderBy: sortType : sortReverse | filter:searchTicket">

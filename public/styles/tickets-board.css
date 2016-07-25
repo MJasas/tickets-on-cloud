@@ -55,3 +55,9 @@
 .panel-heading:hover {
     background-color: #bfbfbf;
 }
+
+/*Spinning icon*/
+img.spinner {
+    display: block;
+    margin: auto;
+}

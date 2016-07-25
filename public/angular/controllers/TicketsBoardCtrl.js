@@ -22,14 +22,16 @@ angular.module('TicketsSupportApp')
         var ticketsCount = 0;
         var last = 0;
         $scope.answState = [];
-
         angular.element(document).ready(function() {
+            // start loading icon
+            $scope.isLoading = true;
             $http({
             method : "GET",
             url : "/api/fetch/tickets"
         })
             .success(function(response) {
                 $scope.allTickets = response;
+                $scope.isLoading = false;
                 ticketsCount = $scope.allTickets.length;
                     if (ticketsCount) {
                         $scope.tickets = [$scope.allTickets[0]];
