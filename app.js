@@ -10,7 +10,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var logger = require('morgan');
 var errorHandler = require('errorhandler');
-
+var multer = require('multer'); // only for multipart/form-data formats
 
 //--------------------------------------
 // Let's go
@@ -18,13 +18,16 @@ var errorHandler = require('errorhandler');
 
 // create app
 var app = express();
+// get ready for uploads 
+var upload = multer({
+	dest: './uploads/'
+});
 
 // setup app environment
 app.set('port', process.env.PORT || 3000); //sets port approperate to environment (3000 for localhost)
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(bodyParser.json()); // for parsing application/json
-
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'views')));
@@ -144,8 +147,9 @@ function createResponseData(id, rev, name, ticketData, attachments) {
 /*********************************
 Route PUT endpoint
 *********************************/
-app.put('/api/upload/file', function(req, res) {
+app.put('/api/upload/file', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
+	console.log('[Server]: request file:'+ JSON.stringify(req.file));
 	res.status(303).send('Your file has been submited successfully.');
 })
 

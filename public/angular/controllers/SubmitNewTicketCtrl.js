@@ -45,10 +45,13 @@ New Ticket Submit Controller
 *********************************/
 angular.module('TicketsSupportApp')
     .controller('SubmitNewTicketCtrl', function($scope, $http, $location, formMultipartUploadSrv){
-        var myFile = $scope.newTicketFile;
-        var uploadUrl = "/api/upload/file";
+
         $scope.testFileSubmit = function(){
-                formMultipartUploadSrv.uploadToUrl(file, uploadUrl);
+                var myFile = $scope.newTicketFiles;
+                console.log('file is ' );
+                console.dir(myFile);
+                var uploadUrl = "/api/upload/file";
+                formMultipartUploadSrv.uploadToUrl(myFile, uploadUrl);
             };
 
 
