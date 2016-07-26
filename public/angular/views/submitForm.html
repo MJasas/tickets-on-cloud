@@ -7,6 +7,7 @@
             <div class="col-md-8">
                 <h1>Submit new ticket</h1>
             </div>
+            <!-- TYPE -->
             <div class="form-group">
                 <label for="ticketType" class="col-md-4 control-label">
                     Please select type:
@@ -20,6 +21,7 @@
                     <span ng-show="newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid">Please select ticket type.</span>
                 </div>
             </div>
+            <!-- PRIORITY -->
             <div class="form-group">
                 <label for="ticketPriority" class="col-md-4 control-label">
                     Please select priority:
@@ -33,6 +35,7 @@
                     <span ng-show="newTicketForm.prioritySelectField.$touched && newTicketForm.prioritySelectField.$invalid">Please select ticket priority.</span>
                 </div>
             </div>
+            <!-- APPLICATION -->
             <div class="form-group">
                 <label for="application" class="col-md-4 control-label">
                     Please select application:
@@ -46,6 +49,7 @@
                     <span ng-show="newTicketForm.applicationSelectField.$touched && newTicketForm.applicationSelectField.$invalid">Please select application name.</span>
                 </div>
             </div>
+            <!-- REGION -->
             <div class="form-group">
                 <label for="region" class="col-md-4 control-label">
                     Please select region:
@@ -59,35 +63,39 @@
                     <span ng-show="newTicketForm.regionSelectField.$touched && newTicketForm.regionSelectField.$invalid">Please select region.</span>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- FIRST NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : newTicketForm.firstNameField.$invalid && !newTicketForm.firstNameField.$pristine }">
                 <label for="firstName" class="col-md-4 control-label">
                     First Name:
                 </label>
                 <div class="col-md-8">
-                    <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="newTicket.firstName" required/>
+                    <input type="text" id="firstName" name="firstNameField" class="form-control" ng-model="newTicket.firstName" ng-model-options="{ updateOn: 'blur' }" required/>
                     <span ng-show="newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid">First name is required.</span>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- LAST NAME -->
+            <div class="form-group" ng-class="{ 'has-error' : newTicketForm.lastNameField.$invalid && !newTicketForm.lastNameField.$pristine }">
                 <label for="lastName" class="col-md-4 control-label">
                     Last Name:
                 </label>
                 <div class="col-md-8">
-                    <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="newTicket.lastName" required/>
+                    <input type="text" id="lastName" name="lastNameField" class="form-control" ng-model="newTicket.lastName" ng-model-options="{ updateOn: 'blur' }" required/>
                     <span ng-show="newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid">Last name is required.</span>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- EMAIL -->
+            <div class="form-group" ng-class="{ 'has-error' : newTicketForm.emailField.$invalid && !newTicketForm.emailField.$pristine }">
                 <label for="email" class="col-md-4 control-label">
                     Your e-mail:
                 </label>
                 <div class="col-md-8">
-                    <input type="email" id="email" name="emailField" class="form-control" placeholder="full address" data-error="Bruh, that email address is invalid" ng-model="newTicket.email" required/>
+                    <input type="email" id="email" name="emailField" class="form-control" ng-model="newTicket.email" ng-model-options="{ updateOn: 'blur' }" required/>
                     <span ng-show="newTicketForm.emailField.$touched && newTicketForm.emailField.$pristine">E-mail address is required.</span>
                     <span ng-show="newTicketForm.emailField.$dirty && newTicketForm.emailField.$invalid">E-mail address is invalid.</span>
                 </div>
             </div>
-            <div class="form-group">
+            <!-- QUESTION -->
+            <div class="form-group" ng-class="{ 'has-error' : newTicketForm.questionField.$invalid && !newTicketForm.questionField.$pristine }">
                 <label for="question" class="col-md-4 control-label">
                     Please describe your question:
                 </label>
@@ -96,40 +104,32 @@
                     <span ng-show="newTicketForm.questionField.$touched && newTicketForm.questionField.$invalid">Question is required.</span>
                 </div>
             </div>
-            <!--<div class="form-group">
-                <label for="file" class="col-sm-2 control-label">
+            <div class="form-group">
+                <label for="file" class="col-md-4 control-label">
                     Please attach evidence or supplement material:
                 </label>
-                <div class="col-sm-10">
-                    <button type="button" id="file" class="btn btn-default" file-model="newTicket.file">Browse</button>
+                <div class="col-md-8">
+                    <input type="button" id="file" class="btn btn-default" file-model="newTicket.file" value="Browse"/>
                 </div>
-            </div>-->
+            </div>
             <div class="form-group">
                 <label for="button" class="col-md-4 control-label">
                 </label>
                 <div class="col-md-8">
-                    <button type="button" class="btn btn-primary" 
-                    ng-disabled="newTicketForm.typeSelectField.$pristine ||
-                                 newTicketForm.prioritySelectField.$pristine ||
-                                 newTicketForm.applicationSelectField.$pristine ||
-                                 newTicketForm.regionSelectField.$pristine ||
-                                 newTicketForm.firstNameField.$pristine ||
-                                 newTicketForm.lastNameField.$pristine ||
-                                 newTicketForm.emailField.$pristine ||
-                                 newTicketForm.questionField.$pristine ||
-                                 newTicketForm.typeSelectField.$touched && newTicketForm.typeSelectField.$invalid ||
-                                 newTicketForm.firstNameField.$touched && newTicketForm.firstNameField.$invalid ||
-                                 newTicketForm.lastNameField.$touched && newTicketForm.lastNameField.$invalid ||
-                                 newTicketForm.emailField.$touched && newTicketForm.emailField.$invalid ||
-                                 newTicketForm.questionField$touched && newTicketForm.questionField.$invalid" 
-                    ng-click="submitForm()" value="Submit">
+                    <button class="btn btn-primary" 
+                    ng-disabled="newTicketForm.$invalid"
+                    ng-click="submitForm()">
                     Submit
                     </button>
                     <span ng-show="newTicketForm.$submitted">Your ticket has been submitted successfully.</span>
                     <span class="reset" ng-click="resetForm()">Reset fields</span>
                 </div>
             </div>
-
         </form>
+        <button class="btn btn-primary" ng-click="testSubmition"> Test </button>
+                    <p> Form status </p>
+                    <p> submitted : {{newTicketForm.$submitted}} </p>
+                    <p> valid : {{newTicketForm.$valid}} </p>
+                    <p> pristine : {{newTicketForm.$pristine}} </p>
     </div>
 </div>

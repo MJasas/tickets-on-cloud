@@ -1,4 +1,46 @@
 /*********************************
+Custom directive for inputs
+*********************************/
+angular.module('TicketsSupportApp')
+    .directive('myDirective', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, element, attr, SubmitNewTicketController) {
+                function myLetterCase(value) {
+                    firstLetter = value.slice(0, 1);
+                    if (firstLetter == firstLetter.toUpperCase()){
+                        SubmitNewTicketController.$setValidity('firstCapital', true);
+                    } else {
+                        SubmitNewTicketController.$setValidity('firstCapital', false);
+                    }
+                    return value;
+                }
+                SubmitNewTicketController.$parsers.push(myLetterCase);
+            }
+        };
+    });
+
+/*********************************
+Custom directive for file handling
+*********************************/
+angular.module('TicketsSupportApp')
+    .directive('fileModel', ['$parse', function ($parse) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                var model = $parse(attrs.fileModel);
+                var modelSetter = model.assign;
+                
+                element.bind('change', function(){
+                    scope.$apply(function(){
+                    modelSetter(scope, element[0].files[0]);
+                    });
+                });
+            }
+        };
+}]);
+
+/*********************************
 New Ticket Submit Controller
 *********************************/
 angular.module('TicketsSupportApp')
@@ -10,10 +52,6 @@ angular.module('TicketsSupportApp')
 
         // Submit new ticket
         $scope.submitForm = function(){
-            var form = document.getElementsByName('newTicketForm').item(0); 
-            // submit form via Angular custom service
-            var fd = new FormData(form);
-            // formSubmitService.uploadToUrl(fd, 'api/new-ticket/submit');
 
             // Submit form data
             var formData = {
@@ -39,11 +77,9 @@ angular.module('TicketsSupportApp')
                 .error(function(err){
                     console.log(err);
                 });
-        };
 
-        function redirect(){
-            console.log(JSON.stringify($location.path()));
-            $location.path('#/main').replace();
+            $scope.testSubmit = function(){
+                
+            }
         };
-
     });
