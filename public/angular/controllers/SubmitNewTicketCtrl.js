@@ -1,5 +1,5 @@
 /*********************************
-Custom directive for inputs
+Custom directive for input validation
 *********************************/
 angular.module('TicketsSupportApp')
     .directive('myDirective', function() {
@@ -44,7 +44,14 @@ angular.module('TicketsSupportApp')
 New Ticket Submit Controller
 *********************************/
 angular.module('TicketsSupportApp')
-    .controller('SubmitNewTicketCtrl', function($scope, $http, $location){
+    .controller('SubmitNewTicketCtrl', function($scope, $http, $location, formMultipartUploadSrv){
+        var myFile = $scope.newTicketFile;
+        var uploadUrl = "/api/upload/file";
+        $scope.testFileSubmit = function(){
+                formMultipartUploadSrv.uploadToUrl(file, uploadUrl);
+            };
+
+
         // Reset fields
         $scope.resetForm = function(){
             $scope.newTicket = {};
@@ -77,9 +84,5 @@ angular.module('TicketsSupportApp')
                 .error(function(err){
                     console.log(err);
                 });
-
-            $scope.testSubmit = function(){
-                
-            }
         };
     });

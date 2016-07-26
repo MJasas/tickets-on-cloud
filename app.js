@@ -10,8 +10,7 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var logger = require('morgan');
 var errorHandler = require('errorhandler');
-var multipart = require('connect-multiparty')
-var multipartMiddleware = multipart();
+
 
 //--------------------------------------
 // Let's go
@@ -143,10 +142,18 @@ function createResponseData(id, rev, name, ticketData, attachments) {
 };
 
 /*********************************
+Route PUT endpoint
+*********************************/
+app.put('/api/upload/file', function(req, res) {
+	console.log('[Server]: request data:'+ JSON.stringify(req.body));
+	res.status(303).send('Your file has been submited successfully.');
+})
+
+/*********************************
 Route POST endpoint
 *********************************/
 
-app.post('/api/new-ticket/submit', function(req, res){
+app.post('/api/new-ticket/submit', function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
 	var ticket = req.body;
 	var date = new Date();

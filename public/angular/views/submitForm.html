@@ -109,7 +109,7 @@
                     Please attach evidence or supplement material:
                 </label>
                 <div class="col-md-8">
-                    <input type="button" id="file" class="btn btn-default" file-model="newTicket.file" value="Browse"/>
+                    <input type="file" id="file" file-model="newTicket.file"/>
                 </div>
             </div>
             <div class="form-group">
@@ -126,7 +126,7 @@
                 </div>
             </div>
         </form>
-        <button class="btn btn-primary" ng-click="testSubmition"> Test </button>
+        <button class="btn btn-primary" ng-click="testFileSubmit()"> Test file submition </button>
                     <p> Form status </p>
                     <p> submitted : {{newTicketForm.$submitted}} </p>
                     <p> valid : {{newTicketForm.$valid}} </p>

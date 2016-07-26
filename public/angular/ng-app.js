@@ -4,34 +4,6 @@ TicketSupportApp
 
 angular.module('TicketsSupportApp', ['ngRoute', 'ngAnimate', 'ui.bootstrap']);
 
-// /*********************************
-// Custom service for managing Ticket submit
-// *********************************/
-// angular.module('TicketsSupportApp').service('formSubmitService', ['$http', function($http){
-
-//         this.uploadToUrl = function(fd, url){
-
-//             $http({
-//                 method : "POST",
-//                 url : url,
-//                 withCredentials: false,
-//                 headers: {'Content-Type': undefined},
-//                 transformRequest: angular.identity,
-//                 params: { fd },
-
-//             })
-
-//             .success(function(response){
-//                 alert(response);
-//                 console.log(response);
-//             })
-
-//             .error(function(err){
-//                 alert(err);
-//             });
-//         }
-// }]);
-
 /*********************************
 Routing
 *********************************/
