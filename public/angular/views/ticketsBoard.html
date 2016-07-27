@@ -62,6 +62,9 @@
                         </div>
                     </div>
                 </uib-accordion-heading>  
+                <div class="attachments">
+                    <p>Attachment: <a href="/{{ticket.data.attachment.filename}}">{{ ticket.data.attachment.originalname }}</a>
+                </div>
                 <div class="answer-container">
                     <div class="sub-answer" ng-show='answState[$index]'>
                         <div class="row" ng-repeat="post in ticket.data.answer.chat">

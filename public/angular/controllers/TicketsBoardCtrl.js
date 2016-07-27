@@ -64,14 +64,6 @@ angular.module('TicketsSupportApp')
             console.log(who);
         }
 
-        function findTicket(id) {
-            return 
-        }
-
-        function updateTicket(id) {
-
-        }
-
         $scope.submitAnswer = function(ticket){
             var lastMessage = ticket.data.answer.chat.length;
             // Push new answer to chat
@@ -82,12 +74,12 @@ angular.module('TicketsSupportApp')
             ticket.data.answer.newText = ''; // clear input
             //send ticket update req to server
             $http({
-                method : "PUT",
+                method : "POST",
                 url : "api/update/ticket/",
                 data : ticket
             })
-                .success(function (response){
-                    // add response data
+                .success(function (response){ // responds doc headers only with aditional timeStamp propery
+                    // update ticket with response data
                     ticket.data.answer.chat[lastMessage].timeStamp = response.timeStamp;
                     ticket.data.lastUpdate = response.timeStamp;
                     ticket._rev = response.docRev;

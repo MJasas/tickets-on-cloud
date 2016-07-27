@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.use(bodyParser.json()); // for parsing application/json
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'uploads')));
 app.use(express.static(path.join(__dirname, 'views')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
@@ -202,7 +203,7 @@ app.put('/api/upload/file', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
 	console.log('[Server]: request file:'+ JSON.stringify(req.file));
 	res.status(303).send('Your file has been submited successfully.');
-})
+});
 // Form submit with file attached
 app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
@@ -363,12 +364,12 @@ app.get('/api/fetch/tickets', function(req, res){
 	});// end db.list
 });// end app.get
 
-app.put('/api/update/ticket', function(req, res){
+app.post('/api/update/ticket', function(req, res){
 	console.log('[Server]: managing update request with data:'+ JSON.stringify(req.body));
 	var ticket = req.body;
 	var lastMessage = ticket.data.answer.chat.length;
 	var timeStamp = new Date();
-	
+
 	ticket.data.answer.chat[lastMessage-1].timeStamp = timeStamp.getTime();
 	ticket.data.lastUpdate = timeStamp.getTime();
 	db.insert(ticket, function(err, doc) {
