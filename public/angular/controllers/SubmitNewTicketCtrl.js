@@ -64,7 +64,7 @@ angular.module('TicketsSupportApp')
             };
             console.log(JSON.stringify(formData));
             // var uploadUrl = "/api/new-ticket/submit";
-            var uploadUrl = "/api/upload/file";
+            var uploadUrl = "/api/new-ticket/submit";
             formMultipartUploadSrv.uploadToUrl(formData, uploadUrl);
         };
     });

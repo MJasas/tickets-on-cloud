@@ -197,12 +197,13 @@ app.get('/api/watson/answers/:question', function(req, res) {
 /*********************************
 Route PUT endpoint
 *********************************/
+// Testing
 app.put('/api/upload/file', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
 	console.log('[Server]: request file:'+ JSON.stringify(req.file));
 	res.status(303).send('Your file has been submited successfully.');
 })
-
+// Form submit with file attached
 app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
 	console.log('[Server]: request file:'+ JSON.stringify(req.file));
@@ -221,7 +222,7 @@ app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 	// add property: resolutionTime
 	ticket.resolutionTime = null;
 	// add property: lastupdate
-	ticket.lastUpdate = null;
+	ticket.lastUpdate = 'not updated yet';
 	// add property: answer (object)
 	ticket.answer = {
 		chat: [{
@@ -230,7 +231,8 @@ app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 			text: "not answered yet."
 		}],
 		newText : ''};
-	
+	ticket.attachment = req.file;
+
 	// Push Ticket data to DB
 	var docName = 'Ticket';
 	var docDesc = 'This doc holds all data associated with IBP ticket.';
@@ -246,6 +248,8 @@ app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 			res.status(303).send('Your ticket has been submited successfully.'); //this is part of Post/Redirect/Get pattern
 		}
 	});// End document insert
+
+	
 });
 
 /*********************************
