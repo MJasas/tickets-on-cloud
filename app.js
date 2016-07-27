@@ -145,6 +145,56 @@ function createResponseData(id, rev, name, ticketData, attachments) {
 };
 
 /*********************************
+CORS
+*********************************/
+// app.all("*/watsonplatform/*", function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+//     res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+//     return next();
+// });
+
+/*********************************
+Watson Retrieve and Rank service
+*********************************/
+var watson  = require('watson-developer-cloud');
+var retrieve_and_rank = watson.retrieve_and_rank({
+  username: '27e15910-c8bf-4b46-a757-bbb8c0d23947',
+  password: 'WedqteFdY0K2',
+  version: 'v1'
+});
+
+var params = {
+  cluster_id: "sc2e0320c3_b465_42b8_853f_e7eb68a50877",
+  collection_name: "IBP_collection"
+};
+
+//  Use a querystring parser to encode output.
+var qs = require('qs');
+
+// Get a Solr client for indexing and searching documents.
+// See https://github.com/watson-developer-cloud/node-sdk/blob/master/services/retrieve_and_rank/v1.js
+var solrClient = retrieve_and_rank.createSolrClient(params);
+
+var ranker_id = '1ba90fx17-rank-114';
+
+app.get('/api/watson/answers/:question', function(req, res) {
+	var question = req.params.question;
+	var query     = qs.stringify({q: question, ranker_id: ranker_id, fl: 'id,answer,title'}); //fl: 'id,title'
+
+	solrClient.get('select', query, function(err, searchResponse) {
+  		if(err) {
+    		console.log('Error searching for documents: ' + err);
+  		} else {
+      		// console.log(JSON.stringify(searchResponse.response.docs, null, 2));
+			res.write(JSON.stringify(searchResponse.response.docs));
+			res.end();
+    	}
+	});
+});
+
+
+/*********************************
 Route PUT endpoint
 *********************************/
 app.put('/api/upload/file', upload.single('file'), function(req, res) {
@@ -153,12 +203,9 @@ app.put('/api/upload/file', upload.single('file'), function(req, res) {
 	res.status(303).send('Your file has been submited successfully.');
 })
 
-/*********************************
-Route POST endpoint
-*********************************/
-
-app.post('/api/new-ticket/submit', function(req, res) {
+app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 	console.log('[Server]: request data:'+ JSON.stringify(req.body));
+	console.log('[Server]: request file:'+ JSON.stringify(req.file));
 	var ticket = req.body;
 	var date = new Date();
 	// add property: id
@@ -183,6 +230,7 @@ app.post('/api/new-ticket/submit', function(req, res) {
 			text: "not answered yet."
 		}],
 		newText : ''};
+	
 	// Push Ticket data to DB
 	var docName = 'Ticket';
 	var docDesc = 'This doc holds all data associated with IBP ticket.';
@@ -199,6 +247,10 @@ app.post('/api/new-ticket/submit', function(req, res) {
 		}
 	});// End document insert
 });
+
+/*********************************
+Route POST endpoint
+*********************************/
 
 /*********************************
 Route GET endpoint

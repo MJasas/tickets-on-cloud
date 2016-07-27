@@ -8,7 +8,7 @@
                 class="form-control"
                 name="searchAnswer"
                 rows="3"
-                ng-model="newQuestion.text"
+                ng-model="question"
                 placeholder="Describe your question here..."
                 required>
             </textarea>
@@ -16,9 +16,13 @@
             <button
                 type="button"
                 class="btn btn-primary form-control"
-                ng-click="searchAnswer()">
+                ng-click="searchAnswer(question)">
                 Search
             </button>
+        </div>
+        <h3>{{ allAnswers.length }} answers</h3>
+        <div ng-repeat="answer in allAnswers">
+            <p> Answer # {{ $index }}: {{ answer.answer[0] }} </p>
         </div>
     </div>
     <!--1/2 view-->

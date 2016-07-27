@@ -45,25 +45,12 @@ New Ticket Submit Controller
 *********************************/
 angular.module('TicketsSupportApp')
     .controller('SubmitNewTicketCtrl', function($scope, $http, $location, formMultipartUploadSrv){
-
-        $scope.testFileSubmit = function(){
-                var myFile = $scope.newTicketFiles;
-                console.log('file is ' );
-                console.dir(myFile);
-                var uploadUrl = "/api/upload/file";
-                formMultipartUploadSrv.uploadToUrl(myFile, uploadUrl);
-            };
-
-
         // Reset fields
         $scope.resetForm = function(){
             $scope.newTicket = {};
-        }
-
-        // Submit new ticket
+        };
+        // Submit new ticket via service
         $scope.submitForm = function(){
-
-            // Submit form data
             var formData = {
                 type : $scope.newTicket.ticketType,
                 priority : $scope.newTicket.ticketPriority,
@@ -73,19 +60,11 @@ angular.module('TicketsSupportApp')
                 lastName : $scope.newTicket.lastName,
                 email : $scope.newTicket.email,
                 question : $scope.newTicket.question,
-                fileAttachment : []
+                file : $scope.newTicketFile
             };
-            // Send 
-            $http({
-                method : "POST",
-                url : "api/new-ticket/submit",
-                data : formData
-            })
-                .success(function (response){
-                    $location.path('#/main').replace();
-                })
-                .error(function(err){
-                    console.log(err);
-                });
+            console.log(JSON.stringify(formData));
+            // var uploadUrl = "/api/new-ticket/submit";
+            var uploadUrl = "/api/upload/file";
+            formMultipartUploadSrv.uploadToUrl(formData, uploadUrl);
         };
     });
