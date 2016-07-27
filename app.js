@@ -353,7 +353,6 @@ app.get('/api/fetch/tickets', function(req, res){
 							count++;
 							if (count >= len) {
 								res.write(JSON.stringify(docList));
-								console.log('[Server]: ending response...');
 								res.end();
 							}	
 						}// end else
@@ -365,7 +364,7 @@ app.get('/api/fetch/tickets', function(req, res){
 });// end app.get
 
 app.post('/api/update/ticket', function(req, res){
-	console.log('[Server]: managing update request with data:'+ JSON.stringify(req.body));
+	console.log('[Server]: managing ticket update request.');
 	var ticket = req.body;
 	var lastMessage = ticket.data.answer.chat.length;
 	var timeStamp = new Date();
