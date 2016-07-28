@@ -12,7 +12,7 @@ angular.module('TicketsSupportApp')
             .then(function(data) {
                 manageActiveTicket(data);
                 $scope.isLoading = false;
-            }, function (err) {
+            }, function(err) {
                 console.log(err);
             });
         

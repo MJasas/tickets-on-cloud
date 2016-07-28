@@ -121,15 +121,10 @@
                     ng-click="submitForm()">
                     Submit
                     </button>
-                    <span ng-show="newTicketForm.$submitted">Your ticket has been submitted successfully.</span>
                     <span class="reset" ng-click="resetForm()">Reset fields</span>
                 </div>
             </div>
         </form>
-        <button class="btn btn-primary" ng-click="submitForm()"> Test file submition </button>
-                    <p> Form status </p>
-                    <p> submitted : {{newTicketForm.$submitted}} </p>
-                    <p> valid : {{newTicketForm.$valid}} </p>
-                    <p> pristine : {{newTicketForm.$pristine}} </p>
+        <button class="btn btn-primary" ng-click="test('Go')"> Test msg </button>
     </div>
 </div>

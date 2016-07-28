@@ -3,8 +3,7 @@ Check ticket Service
 *********************************/
 angular.module('TicketsSupportApp')
     .service('ticketSrv', function($http, $q) {
-        return {
-            getTicket: function(id) {  
+        this.getTicket = function(id) {  
                 var url = "api/get/ticket/"+id;
                 return $http.get(url)
                     .then(function(response) {
@@ -17,5 +16,4 @@ angular.module('TicketsSupportApp')
                         return $q.reject(response.data);
                     });
             }
-        }; // end return
     }); // end service

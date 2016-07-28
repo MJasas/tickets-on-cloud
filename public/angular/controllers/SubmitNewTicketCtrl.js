@@ -44,7 +44,7 @@ angular.module('TicketsSupportApp')
 New Ticket Submit Controller
 *********************************/
 angular.module('TicketsSupportApp')
-    .controller('SubmitNewTicketCtrl', function($scope, $http, $location, formMultipartUploadSrv){
+    .controller('SubmitNewTicketCtrl', ['$scope', '$http', '$location', '$route', '$uibModal', 'formMultipartUploadSrv', function($scope, $http, $location, $route, $uibModal, formMultipartUploadSrv){
         // Reset fields
         $scope.resetForm = function(){
             $scope.newTicket = {};
@@ -62,9 +62,54 @@ angular.module('TicketsSupportApp')
                 question : $scope.newTicket.question,
                 file : $scope.newTicketFile
             };
-            console.log(JSON.stringify(formData));
-            // var uploadUrl = "/api/new-ticket/submit";
+  
             var uploadUrl = "/api/new-ticket/submit";
-            formMultipartUploadSrv.uploadToUrl(formData, uploadUrl);
+            formMultipartUploadSrv.uploadToUrl(formData, uploadUrl)
+                .then(function(msg) {
+                    $scope.showMessage(msg);
+                }, function(err) {
+                    $scope.showMessage(err)
+                });
         };
-    });
+
+        $scope.test = function(msg) {
+            $scope.showMessage(msg);
+        }
+
+        $scope.showMessage = function(msg) {
+            var popUp = $uibModal.open({
+                animation: true,
+                templateUrl: 'angular/templates/infoTmpl.html',
+                controller: 'ModalInstanceCtrl0',
+                resolve: {
+                    message: function() {
+                        return msg;
+                    }
+                }
+                });
+        
+            popUp.result.then(function(){
+                // redirect to main
+                $location.path('/main');
+            }, function() {
+                // refresh page
+                $route.reload();
+            });
+        };
+}]);
+
+/*********************************
+Dedicated popUp Controller
+*********************************/
+angular.module('TicketsSupportApp')
+    .controller('ModalInstanceCtrl0', function($scope, $uibModalInstance, message) {
+        $scope.message = message;
+
+        $scope.ok = function() {
+            $uibModalInstance.close();
+        };
+
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss();
+        };
+});
