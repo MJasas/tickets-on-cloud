@@ -177,7 +177,7 @@ var qs = require('qs');
 // See https://github.com/watson-developer-cloud/node-sdk/blob/master/services/retrieve_and_rank/v1.js
 var solrClient = retrieve_and_rank.createSolrClient(params);
 
-var ranker_id = '1ba90fx17-rank-114';
+var ranker_id = '1ba90fx17-rank-324';
 
 app.get('/api/watson/answers/:question', function(req, res) {
 	var question = req.params.question;
