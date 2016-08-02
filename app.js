@@ -176,7 +176,7 @@ var qs = require('qs');
 // See https://github.com/watson-developer-cloud/node-sdk/blob/master/services/retrieve_and_rank/v1.js
 var solrClient = retrieve_and_rank.createSolrClient(params);
 
-var ranker_id = '1ba90fx17-rank-114';
+var ranker_id = '1ba90fx17-rank-324'; 
 
 app.get('/api/watson/answers/:question', function(req, res) {
 	var question = req.params.question;
@@ -209,6 +209,7 @@ app.put('/api/new-ticket/submit', upload.single('file'), function(req, res) {
 	var ticket = req.body;
 	var date = new Date();
 	// add property: id
+	shortid.characters('0123456789');
 	ticket.id = shortid.generate();
 	// add property: status
 	ticket.status = 'new';

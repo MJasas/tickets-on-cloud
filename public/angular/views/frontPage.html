@@ -1,34 +1,45 @@
-<div class="row">
+
+   <div class="row backgroundStyle">
+       <div class="col-md-3">
+       </div>
+       <div class="col-md-6 text-center headerText">
+            <h1 id="mainText">Search for <b>IBP solution</b> or check your ticket</h1>
+            <h4 id="subText">Simply type in your question or ticket number</h4> 
+       </div>
+       <div class="col-md-3">
+       </div>
+   </div>
+<div class="row backgroundStyle bottomPadding">
     <!--1/2 view-->
-    <div class="col-md-6">
+    <div class="col-md-3">
+    </div>
+   
+    <div class="col-md-3 center-block">
         <div class="form-group">
-            <h3>Search for answer</h3>
-            <textarea
+            <!--<h3>Search for answer</h3>-->
+            <input
+                type="text"
                 id="searchAnswer"
                 class="form-control"
                 name="searchAnswer"
-                rows="3"
                 ng-model="question"
+                ng-model="id"
                 placeholder="Describe your question here..."
                 required>
-            </textarea>
+            </input>
             <br/>
-            <button
-                type="button"
-                class="btn btn-primary form-control"
+            <div
+                class="searchBtn pull-right"
                 ng-click="searchAnswer(question)">
-                Search
-            </button>
+                Search <span class="glyphicon glyphicon-chevron-right glyphColor"></span>
+            </div>
         </div>
-        <h3>{{ allAnswers.length }} answers</h3>
-        <div ng-repeat="answer in allAnswers">
-            <p> Answer # {{ $index }}: {{ answer.answer[0] }} </p>
-        </div>
+        
     </div>
     <!--1/2 view-->
-    <div class="col-md-6">
+   <!-- <div class="col-md-3 center-block">
         <div class="form-group">
-            <h3>Check your ticket</h3>
+            <!--<h3>Check your ticket</h3>
             <input
                 id="searchTicket"
                 class="form-control"
@@ -38,12 +49,22 @@
                 placeholder="Enter ticket id number"
                 required/>
             <br/>
-            <button
-                type="button"
-                class="btn btn-primary form-control"
+            <div
+                class="checkBtn pull-right"
                 ng-click="checkTicket(id)">
-                Check
-            </button>
+                Check <span class="glyphicon glyphicon-chevron-right glyphColor"></span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+    </div>
+</div>
+<!--Answers row-->
+<div class="row backgroundStyle">
+    <div class="col-md-12">
+   <!-- <h3>{{ allAnswers.length }} answers:</h3>-->
+        <div class="col-md-4" ng-repeat="answer in allAnswers">
+            <p class="answers"><span class="answerLabel"> Answer # {{ $index + 1}}: </span> {{ answer.answer[0] }}</p>
         </div>
     </div>
 </div>

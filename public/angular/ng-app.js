@@ -19,7 +19,8 @@ angular.module('TicketsSupportApp').config(function($routeProvider) {
    //Root
     when('/main', {
         templateUrl: 'angular/views/frontPage.html',
-        controller: 'FrontPageCtrl'
+        controller: 'FrontPageCtrl',
+        css: 'styles/front-page.css'
     }).
     when('/ticket/id/:ticketID', {
         templateUrl: 'angular/views/singleTicketPage.html',
@@ -27,7 +28,8 @@ angular.module('TicketsSupportApp').config(function($routeProvider) {
     }).
     when('/submit/new-ticket', {
         templateUrl: 'angular/views/submitForm.html',
-        controller: 'SubmitNewTicketCtrl'
+        controller: 'SubmitNewTicketCtrl',
+        css: 'styles/submit-form.css'
     }).
     when('/show/all-tickets', {
         templateUrl: 'angular/views/ticketsBoard.html',

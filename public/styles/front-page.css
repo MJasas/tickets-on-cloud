@@ -1,3 +1,61 @@
-#searchAnswer, #searchTicket {
+.backgroundStyle{
+    background-color: #C7C7C7;
+    
+}
+.bottomPadding{
+    padding-bottom: 60px;
+}
+.headerText{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+#mainText, #subText{
+    color: #000;
+    line-height: 14px;
+}
+#searchTicket {
     color: #000000;
+    max-height: 50px;
+    border-radius: 0px;;
+}
+.checkBtn{
+    color: #000;
+    font-weight: 600;
+}
+.searchBtn{
+    color: #000;
+     font-weight: 600;
+}
+.searchBtn:hover{
+    cursor: pointer;
+    color: #4178BE;
+}
+.checkBtn:hover{
+    cursor: pointer;
+    color: #4178BE;
+}
+.glyphColor{
+    color: #4178BE;
+}
+
+
+/*Search answer styling*/
+#searchAnswer {
+    max-height: 50px;
+    border-radius: 0px;
+}
+.answers{
+    background-color: white;
+    height: 200px;
+    width: 500px;
+    color: #000000;
+    line-height: 20px;
+    font-size: 12;
+    overflow-y: scroll;
+    padding: 20px;
+}
+.answerLabel{
+    font-size: 16px;
+    font-weight: 600;
+    color: #FDD600;
 }
