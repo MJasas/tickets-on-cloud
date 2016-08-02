@@ -1,9 +1,10 @@
 
    <div class="row backgroundStyle">
-       <div class="col-md-3">
+       <!--empty columns for centering-->
+       <div class="col-md-3"> 
        </div>
        <div class="col-md-6 text-center headerText">
-            <h1 id="mainText">Search for <b>IBP solution</b> or check your ticket</h1>
+            <h1 id="mainText">Search for <b>IBP solution</b> or check your ticket></h1>
             <h4 id="subText">Simply type in your question or ticket number</h4> 
        </div>
        <div class="col-md-3">
@@ -11,10 +12,9 @@
    </div>
 <div class="row backgroundStyle bottomPadding">
     <!--1/2 view-->
-    <div class="col-md-3">
+    <div class="col-md-4">
     </div>
-   
-    <div class="col-md-3 center-block">
+    <div class="col-md-4 center-block">
         <div class="form-group">
             <!--<h3>Search for answer</h3>-->
             <input
@@ -31,11 +31,13 @@
             <div
                 class="searchBtn pull-right"
                 ng-click="search(question)">
-                Search <span class="glyphicon glyphicon-chevron-right glyphColor"></span>
+                Submit <span class= "searchPadding"><img src="../images/ibm-design-icons-forward/forward_32.png"></span>
             </div>
         </div>
-        
     </div>
+    <div class="col-md-4">
+    </div>
+</div>
     <!--1/2 view-->
    <!-- <div class="col-md-3 center-block">
         <div class="form-group">
@@ -64,7 +66,7 @@
     <div class="col-md-12">
    <!-- <h3>{{ allAnswers.length }} answers:</h3>-->
         <div class="col-md-4" ng-repeat="answer in allAnswers">
-            <p class="answers"><span class="answerLabel"> Answer # {{ $index + 1}}: </span> {{ answer.answer[0] }}</p>
+            <p class="answers"><span class="answerLabel "> Answer # {{ $index + 1}}: </span> {{ answer.answer[0] }}</p>
         </div>
     </div>
 </div>

@@ -39,20 +39,31 @@
 </head>
 <body ng-app="TicketsSupportApp">
 
-	<header class="container-fluid">
-		<h1 class="title">Welcome to the IBP Support website</h1>
-		<h3 class="description">Site is in development phase..</h3> 
-		<nav class="navbar navbar-custom">
-			<div class="container-fluid">
-				<div class="navbar-header">
-				<a class="navbar-brand" href="#">No logo</a>
+	<header class="container-fluid headerStyle">
+		<!--<h1 class="title">Welcome to the IBP Support website</h1>
+		<h3 class="description">Site is in development phase..</h3> -->
+		<nav class="navbar navbar-default navbar-custom" role="navigation">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse" id="menuBtn">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+
+						<a class="navbar-brand" href="#">No logo</a>
+					</div>
+					<div class="collapse navbar-collapse nav-collapse"> 	
+						<ul class="nav navbar-nav navbar-right">
+							<li class="active"><a href="#/main" data-target=".nav-collapse">Main</a></li>
+							<li><a href="#/submit/new-ticket"  data-target=".nav-collapse">Submit ticket</a></li>
+							<li><a href="#/show/all-tickets" data-target=".nav-collapse">All tickets</a></li>
+						</ul>
+					</div>	
 				</div>
-				<ul class="nav navbar-nav">
-				<li><a href="#/main">Main</a></li>
-				<li><a href="#/submit/new-ticket">Submit ticket</a></li>
-				<li><a href="#/show/all-tickets">All tickets</a></li>
-				</ul>
-			</div>
+			
 		</nav>
 	</header>
 
@@ -62,9 +73,15 @@
 		</div>
 	</div>
 
-	<footer class="container-fluid text-center">
-  		<!--<p>Powered by Node.js</p>-->
+	<footer class="container-fluid text-center footerStyle">
+  		<p class="byNode">Powered by Node.js</p>
 	</footer>
+
+	<script>
+		$('.nav a').click(function(){
+    		$('.nav-collapse').collapse('hide');
+		});
+	</script>
 
 	<!--Angular Modules-->
     <script src="angular/ng-app.js"></script>

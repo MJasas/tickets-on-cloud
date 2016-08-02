@@ -1,3 +1,6 @@
+body{
+    max-height: 100%;
+}
 .backgroundStyle{
     background-color: #f4f4f4;
     
@@ -15,16 +18,37 @@
 }
 #searchTicket {
     color: #000000;
-    max-height: 50px;
+    max-height: 60px;
     border-radius: 0px;;
 }
+/*
+placeholder styling
+*/
+#searchAnswer::-webkit-input-placeholder {
+   color: #2D3737;
+}
+
+#searchAnswer:-moz-placeholder { /* Firefox 18- */
+   color: #2D3737;  
+}
+
+#searchAnswer::-moz-placeholder {  /* Firefox 19+ */
+   color: #2D3737;
+}
+
+#searchAnswer:-ms-input-placeholder {  
+   color: #2D3737;
+}
+/*
+End of placeholder styling
+*/
 .checkBtn{
     color: #000;
     font-weight: 600;
 }
 .searchBtn{
     color: #000;
-     font-weight: 600;
+    font-weight: 900;
 }
 .searchBtn:hover{
     cursor: pointer;
@@ -37,12 +61,17 @@
 .glyphColor{
     color: #4178BE;
 }
-
+.searchPadding{
+    padding-bottom: 60px;
+    color: 4178BE;
+}
 
 /*Search answer styling*/
 #searchAnswer {
-    max-height: 50px;
+    max-height: 60px;
     border-radius: 0px;
+    border: 0px;
+    outline: none;
 }
 .answers{
     background-color: white;
@@ -58,4 +87,7 @@
     font-size: 16px;
     font-weight: 600;
     color: #FDD600;
+}
+#visibleAnswer{
+    overflow: hidden;
 }
