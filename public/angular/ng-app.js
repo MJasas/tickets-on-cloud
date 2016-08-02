@@ -23,10 +23,14 @@ angular.module('TicketsSupportApp').config(function($routeProvider) {
         templateUrl: 'angular/views/submitForm.html',
         controller: 'SubmitNewTicketCtrl'
     }).
+    when('/submit/new-qna/:ticketID', {
+        templateUrl: 'angular/views/qnaForm.html',
+        controller: 'SubmitNewQnACtrl'
+    }).
     when('/show/all-tickets', {
         templateUrl: 'angular/views/ticketsBoard.html',
         controller: 'TicketsBoardCtrl'
-    }).
+    }).    
     otherwise({
         redirectTo: '/main'
     });
