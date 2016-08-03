@@ -32,6 +32,7 @@ angular.module('TicketsSupportApp')
         $scope.submitPost = function(ticket){
             var lastMessage = ticket.data.answer.chat.length;
             // Push new post to chat
+            // TODD I guess this sould be taken from context as curent user.
             firstLastName = ticket.data.firstName + ' ' + ticket.data.lastName;
             ticket.data.answer.chat.push({ 
                 name : firstLastName,
@@ -40,7 +41,7 @@ angular.module('TicketsSupportApp')
             ticket.data.answer.newText = ''; // clear input
             //send ticket update req to server
             $http({
-                method : "PUT",
+                method : "POST",
                 url : "api/update/ticket/",
                 data : ticket
             })
