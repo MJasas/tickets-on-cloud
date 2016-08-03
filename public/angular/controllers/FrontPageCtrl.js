@@ -42,5 +42,10 @@ angular.module('TicketsSupportApp')
                 }
             };
 
+            $scope.readMore = function(){
+                $('.answers').each(function(){
+                    $(this).css('height', '400px', 'overwlow-y', 'scroll')
+                })
+            };
     });
 

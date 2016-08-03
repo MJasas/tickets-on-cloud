@@ -75,13 +75,21 @@ End of placeholder styling
 }
 .answers{
     background-color: white;
-    height: 200px;
-    width: 500px;
+    height: 120px;
+    width: 400px;
     color: #000000;
-    line-height: 20px;
     font-size: 12;
-    overflow-y: scroll;
     padding: 20px;
+    overflow: hidden;
+    line-height: 20px;
+    height: 80px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
+}
+.showText{
+     overflow: visible;
+     height: 400px;
 }
 .answerLabel{
     font-size: 16px;
@@ -90,4 +98,15 @@ End of placeholder styling
 }
 #visibleAnswer{
     overflow: hidden;
+}
+.readMore{
+    background-color: #fff;
+    width:400px;
+    margin-bottom: 40px;
+    padding-top: 20px; 
+}
+.readMoreBtn{
+    background: transparent;
+    border: none;
+    color: #4178be;
 }

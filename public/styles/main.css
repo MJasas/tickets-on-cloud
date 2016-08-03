@@ -14,6 +14,10 @@ header, footer {
 .headerStyle{
     background-color: #ffffff;
 }
+.userStyle{
+    padding-top: 10px;
+    padding-right: 10px;
+}
 #menuBtn{
     background-color: transparent;
 }

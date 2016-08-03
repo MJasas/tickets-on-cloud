@@ -181,7 +181,7 @@ var ranker_id = '1ba90fx17-rank-324';
 
 app.get('/api/watson/answers/:question', function(req, res) {
 	var question = req.params.question;
-	var query     = qs.stringify({q: question, ranker_id: ranker_id, fl: 'id,answer,title'}); //fl: 'id,title'
+	var query     = qs.stringify({q: question, ranker_id: ranker_id, fl: 'id,question,answer,title'}); //fl: 'id,title'
 
 	solrClient.get('select', query, function(err, searchResponse) {
   		if(err) {
