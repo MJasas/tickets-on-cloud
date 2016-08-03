@@ -31,7 +31,7 @@
             <div
                 class="searchBtn pull-right"
                 ng-click="search(question)">
-                Submit <span class= "searchPadding"><img src="../images/ibm-design-icons-forward/forward_32_blue.png"></span>
+                Submit <span class= "searchPadding"><img src="../images/ibm-design-icons-forward/forward_32_blue.png" style="height: 24px; width:24px"></span>
             </div>
         </div>
     </div>
@@ -62,16 +62,25 @@
     </div>
 </div>
 <!--Answers row-->
-<div class="row backgroundStyle">
-    <div class="col-md-12">
-   <!-- <h3>{{ allAnswers.length }} answers:</h3>-->
-        <div class="col-md-4" ng-repeat="answer in allAnswers">
-            <p class="answers"><span class="answerLabel "> Answer # {{ $index + 1}}: </span> {{ answer.answer[0] }}
-            </p>
-            <p class="readMore">
-                  <button class="readMoreBtn" ng-click="readMore()">Read more..</button>
-            </p>
-           
-        </div>
+<div class="row-fluid backgroundStyle">
+    <div class="col-md-12 bottomMargin">
+    <!--<h3>{{ allAnswers.length }} answers:</h3>-->
+  
+        <div ng-repeat="question in allQuestions | limitTo: 1">
+            <p class="questions"> Question # {{$index +1}}: {{question.question[0]}} </p>
+         </div>                                
+                    <div class="col-md-4 bottomMargin" ng-repeat="answer in allAnswers">
+                      <p class="answers"
+                        ng-class="{'button': !isActive, 'button active': isActive}"
+                        ng-init="isActive = false"
+                        ng-click="isActive = !isActive"
+                      
+                      
+                      ><span class="answerLabel"> Answer # {{ $index + 1}}: </span> {{ answer.answer[0] }}</p>
+                      <p class="readMore">
+                        <button class="readMoreBtn" ng-click="isActive = !isActive">Read more..</button>
+                      </p> 
+                    </div>
     </div>
 </div>
+

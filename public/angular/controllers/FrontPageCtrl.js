@@ -29,6 +29,7 @@ angular.module('TicketsSupportApp')
                         $http.get('/api/watson/answers/'+text)
                             .success(function (response){
                                 $scope.allAnswers = response;
+                                $scope.allQuestions = response;
                             })
                             .error(function(err){
                                 console.log(err);
@@ -41,11 +42,9 @@ angular.module('TicketsSupportApp')
                     console.log(JSON.stringify($location.path()));
                 }
             };
-
+            $scope.isActive = false;
             $scope.readMore = function(){
-                $('.answers').each(function(){
-                    $(this).css('height', '400px', 'overwlow-y', 'scroll')
-                })
-            };
+                $scope.isActive = !$scope.isActive;
+            }
     });
 

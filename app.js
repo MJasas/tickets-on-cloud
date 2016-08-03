@@ -187,7 +187,7 @@ app.get('/api/watson/answers/:question', function(req, res) {
   		if(err) {
     		console.log('Error searching for documents: ' + err);
   		} else {
-      		// console.log(JSON.stringify(searchResponse.response.docs, null, 2));
+      		console.log(JSON.stringify(searchResponse.response.docs, null, 2));
 			res.write(JSON.stringify(searchResponse.response.docs));
 			res.end();
     	}

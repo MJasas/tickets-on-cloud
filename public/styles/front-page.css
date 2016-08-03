@@ -73,23 +73,58 @@ End of placeholder styling
     border: 0px;
     outline: none;
 }
+.questions{
+    z-index: 2;
+    position: absolute;
+    clear: both;
+    background-color: none;
+    height: 20px;
+    width: 400px;
+    color: #000000;
+    font-size: 12;
+    line-height: 20px;
+    height: 30px;
+    text-overflow: ellipsis;
+    margin-top: -60px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
 .answers{
+    z-index: 0;
+    position: relative;
+    clear: left;
+    float: left;
     background-color: white;
     height: 120px;
     width: 400px;
     color: #000000;
     font-size: 12;
     padding: 20px;
-    overflow: hidden;
+    padding-top: -100px;
     line-height: 20px;
-    height: 80px;
+    /*max-height: 32px;*/
+    height: 100px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;   
     margin-bottom: 0;
 }
-.showText{
+.active{
      overflow: visible;
-     height: 400px;
+     min-height: 1600px;
+     z-index: 500;
+    background-color: #fff;
+    width: 460px;
+    color: #000000;
+    font-size: 12;
+    padding: 20px;
+    padding-top: -100px;
+    line-height: 20px;
+    /*max-height: 32px;*/
+    height: 80px;  
+    margin-bottom: 0;
 }
 .answerLabel{
     font-size: 16px;
@@ -109,4 +144,8 @@ End of placeholder styling
     background: transparent;
     border: none;
     color: #4178be;
+    padding: 20px;
+}
+.bottomMargin{
+    margin-bottom: 60px;
 }
