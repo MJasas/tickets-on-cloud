@@ -195,15 +195,15 @@ app.get('/api/watson/answers/:question', function(req, res) {
 });
 
 app.post('/api/watson/add', function(req, res){
-	console.log('[Server]: adding answer to SOLR.');
+	console.log('[Server]: adding answer to SOLR...');
 	var query = solrClient.createQuery();
 	query.q({ '*' : '*' });
 	solrClient.search(query, function(err, searchResponse) {
   		if (err) {
-			console.log('[Server]: Error searching for documents: ' +  err);
+			console.log('[SOLR]: Error searching for documents: ' +  err);
 			res.status(500).send('Last SOLR document id was not found.');
   		} else {
-			console.log('[Server]: Found ' + searchResponse.response.numFound + ' document(s).');
+			console.log('[SOLR]: Found ' + searchResponse.response.numFound + ' document(s).');
 		  	var id = searchResponse.response.numFound+1;
 			var doc = {
 				id: id, 
@@ -211,19 +211,19 @@ app.post('/api/watson/add', function(req, res){
 				answer: req.body.answer,
 				application: req.body.application
 			}; 
-			console.log('[Server]: Indexing a document...');
+			console.log('[SOLR]: Indexing a document...');
           	solrClient.add(doc, function (err, response) {
             	if (err) {
-              		console.log('[Server]: Error indexing document: ' + err);
+              		console.log('[SOLR]: Error indexing document: ' + err);
 					res.status(500).send('SOLR document was not added.');  
             	} else {
-                	console.log('[Server]: Indexed a document.');
+                	console.log('[SOLR]: Indexed a document.');
                 	solrClient.commit(function(err) {
                   		if(err) {
-                    		console.log('[Server]: Error committing change: ' + err);
+                    		console.log('[SOLR]: Error committing change: ' + err);
 							res.status(500).send('SOLR document was not commited.');  
                   		} else {
-							console.log('[Server]: SOLR document added -> ' + JSON.stringify(doc));
+							console.log('[SOLR]: SOLR document added -> ' + JSON.stringify(doc));
 							res.json(doc);					
                     	}
                 	});
