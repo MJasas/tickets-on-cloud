@@ -89,4 +89,8 @@ angular.module('TicketsSupportApp')
                 });
 
         };
+
+        $scope.moveToQnA = function(ticketId) {
+            $location.path('submit/new-qna/' + ticketId);
+        };
     });

@@ -1,0 +1,65 @@
+<div class="row">
+    <div class="col-md-8">
+
+        <form id="newQnAForm" class="form-horizontal" name="newQnAForm" role="form" novalidate>
+            <label class="col-md-4 control-label">
+            </label>
+            <div class="col-md-8">
+                <h1>Move to Q&A</h1>
+            </div>
+            <!-- TICKET INFO -->
+            <div class="form-group">
+                <!-- TODO put needed info of ticket here 
+                <p>{{ ticket.data.question }}</p>
+                -->
+            </div>
+            <!-- QUESTION -->
+            <div class="form-group" ng-class="{ 'has-error' : newQnAForm.questionField.$invalid && !newQnAForm.questionField.$pristine }">
+                <label for="question" class="col-md-4 control-label">
+                    Question:
+                </label>
+                <div class="col-md-8">
+                    <textarea rows="3" id="question" name="questionField" class="form-control" ng-model="newQnA.question" required/>
+                    <span ng-show="newQnAForm.questionField.$touched && newQnAForm.questionField.$invalid">Question is required.</span>
+                </div>
+            </div>
+            <!-- ANSWER -->
+            <div class="form-group" ng-class="{ 'has-error' : newQnAForm.answerField.$invalid && !newQnAForm.answerField.$pristine }">
+                <label for="answer" class="col-md-4 control-label">
+                    Answer:
+                </label>
+                <div class="col-md-8">
+                    <textarea rows="3" id="answer" name="answerField" class="form-control" ng-model="newQnA.answer" required/>
+                    <span ng-show="newQnAForm.answerField.$touched && newQnAForm.answerField.$invalid">Answer is required.</span>
+                </div>
+            </div>
+            <!-- APPLICATION -->
+            <div class="form-group">
+                <label for="application" class="col-md-4 control-label">
+                    Please select application:
+                </label>
+                <div class="col-md-8">
+                    <select id="application" name="applicationSelectField" class="form-control" ng-model="newQnA.application" required>
+                        <option value="appA" selected>appA</option>
+                        <option value="appB">appB</option>
+                        <option value="appC">appC</option>
+                    </select>
+                    <span ng-show="newQnAForm.applicationSelectField.$touched && newQnAForm.applicationSelectField.$invalid">Please select application name.</span>
+                </div>
+            </div>
+           
+            <div class="form-group">
+                <label for="button" class="col-md-4 control-label">
+                </label>
+                <div class="col-md-8">
+                    <button class="btn btn-primary" 
+                    ng-disabled="newQnAForm.$invalid"
+                    ng-click="submitForm()">
+                    Submit
+                    </button>
+                    <span class="reset" ng-click="resetForm()">Reset fields</span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
