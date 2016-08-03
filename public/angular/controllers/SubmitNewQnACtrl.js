@@ -24,6 +24,22 @@ angular.module('TicketsSupportApp')
             console.log('question', $scope.newQnA.question);
             console.log('answer', $scope.newQnA.answer);
             console.log('application', $scope.newQnA.application);
+            var url = '/api/watson/add';
+            var data = {
+                question : $scope.newQnA.question,
+                answer : $scope.newQnA.answer,
+                application : $scope.newQnA.application                
+            };
+            $http({
+                method : "POST",
+                url : url,
+                data : data
+            }).success(function (response){
+                console.log('response', response);
+                $location.path('main');
+            }).error(function(err){
+                console.log('err', err);
+            });
         };
 
         // Reset fields
