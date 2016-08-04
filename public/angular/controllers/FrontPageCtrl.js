@@ -24,12 +24,15 @@ angular.module('TicketsSupportApp')
         };
 
         */
+
+
             $scope.search = function(text){
                 if(isNaN(text)){
                         $http.get('/api/watson/answers/'+text)
                             .success(function (response){
                                 $scope.allAnswers = response;
                                 $scope.allQuestions = response;
+
                             })
                             .error(function(err){
                                 console.log(err);
@@ -42,9 +45,19 @@ angular.module('TicketsSupportApp')
                     console.log(JSON.stringify($location.path()));
                 }
             };
-            $scope.isActive = false;
-            $scope.readMore = function(){
-                $scope.isActive = !$scope.isActive;
-            }
-    });
+           
+    })
+    .directive('ngEnter', function() {
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                        scope.$apply(function(){
+                                scope.$eval(attrs.ngEnter);
+                        });
+                        
+                        event.preventDefault();
+                }
+            });
+        };
+});
 

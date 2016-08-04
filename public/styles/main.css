@@ -11,7 +11,19 @@ header, footer {
     /*background-color: #26343F;*/
 	color: #ffffff;
 }
-.headerStyle{
+#logo{
+    color: #000; 
+}
+.myBar{
+    outline: none;
+    border:none;
+    drop-shadow: none;
+}
+.navbar-toggle{
+    border: none;
+    outline: none;
+}
+.headerStyle{;
     background-color: #ffffff;
 }
 .userStyle{

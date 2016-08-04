@@ -8,6 +8,94 @@
     
 }*/
 
+
+body{
+    width: 100%;
+}   
+.backgroundStyle{
+    background-color: #f4f4f4;
+}
+form{
+    width: 800px;
+    margin-left: auto;
+    margin-top: -5%;
+    padding-top: 4%;
+    padding-bottom: 10%;
+}
+h1{
+    color: #4178BE;
+}
 select {
+    background-color: #f4f4f4;
     color: #000000;
+    /*Removes select arrow*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+/*remove arrow for IE */
+select::-ms-expand {
+    display: none;
+}
+/*select styling*/
+#ticketType, #ticketPriority, #application, #region, .inputStyle{
+    border-radius: 0px;
+    border-bottom: 1px solid #000000;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    box-shadow: none;
+    background-color:#f4f4f4; 
+}
+label{
+    color: #000000;
+}
+
+/*validation text color*/
+span{
+    color: #aeaeae;
+}
+input[type="file"]{
+    display: none;
+}
+
+.custom-upload{
+    border: 2px solid #4178BE;
+    width: 80px;
+    display: inline-block;
+    padding: 6px 12px;
+    color: #4178BE;
+}
+.custom-upload:hover{
+    background-color: #4178BE;
+    color: #fff;
+    cursor: pointer;
+}
+
+.submitBtn{
+    border: 2px solid #4178BE;
+    border-radius: 0px;
+    width: 200px;
+    display: inline-block;
+    padding: 12px 12px;
+    color: #4178BE;
+
+}
+.submitBtn:hover{
+    background-color: #4178BE;
+    color: #fff;
+    cursor: pointer;
+}
+.reset{
+    color: #000;
+}
+
+.testFileSub{
+    color: #000;
+}
+
+footer{
+    max-height: 20%;
 }
